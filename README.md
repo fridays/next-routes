@@ -77,7 +77,7 @@ export default () => (
 API: `<Link route="name" params={params}>...</Link>`
 
 - `route` - Name of a route
-- `params` - Parameters for the route URL
+- `params` - Optional parameters for the route URL
 
 It generates the URL and passes `href` and `as` props to `next/link`.
 
@@ -112,7 +112,7 @@ API:
 `Router.replaceRoute(name, params)`
 
 - `route` - Name of a route
-- `params` - URL params for the route
+- `params` - Optional parameters for the route URL
 
 It generates the URL and passes `href` and `as` parameters to `next/router`.
 
