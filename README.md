@@ -37,7 +37,7 @@ API: `routes.add(name, pattern, page = name)`
 The page component receives the matched URL parameters merged into `query`
 
 ```javascript
-export default class Blog extends React.Component() {
+export default class Blog extends React.Component {
   static async getInitialProps({query}) {
     // query.slug
   }
