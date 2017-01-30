@@ -1,5 +1,7 @@
 # Named routes for next.js
 
+[![npm version](https://badge.fury.io/js/next-routes.svg)](https://badge.fury.io/js/next-routes)
+
 Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
 
 - Express-style route and parameters matching
@@ -75,9 +77,9 @@ export default () => (
 API: `<Link route="name" params={params}>...</Link>`
 
 - `route` - Name of a route
-- `params` - URL params for the route
+- `params` - Parameters for the route URL
 
-It generates the URL for the route and passes `href` and `as` props to `next/link`.
+It generates the URL and passes `href` and `as` props to `next/link`.
 
 ---
 
@@ -93,9 +95,12 @@ export default class extends React.Component {
   }
   render() {
     return (
-      <button onClick={this.handleClick.bind(this)}>
-        Home
-      </button>
+      <div>
+        <div>{this.props.url.query.slug}</div>
+        <button onClick={this.handleClick.bind(this)}>
+          Home
+        </button>
+      </div>
     )
   }
 }
@@ -109,10 +114,10 @@ API:
 - `route` - Name of a route
 - `params` - URL params for the route
 
-It generates the URL for the route and passes `href` and `as` parameters to `next/router`.
+It generates the URL and passes `href` and `as` parameters to `next/router`.
 
 ---
 ##### Related links
 
-- [zeit/next.js](https://github.com/zeit/next.js) - Framework for server-rendered React apps
+- [zeit/next.js](https://github.com/zeit/next.js) - Minimalistic framework for server-rendered React applications
 - [path-to-regexp](https://github.com/pillarjs/path-to-regexp) - Express-style path to regexp
