@@ -26,7 +26,7 @@ const routes = module.exports = nextRoutes()
 routes.add('blog', '/blog/:slug')
 routes.add('about', '/about-us/:foo(bar|baz)', 'index')
 ```
-This file is used both on the server an the client.
+This file is used both on the server and the client.
 
 API: `routes.add(name, pattern, page = name)`
 

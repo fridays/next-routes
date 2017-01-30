@@ -24,8 +24,8 @@ class Routes {
 
     return (req, res) => {
       let params
-      const {url, query} = req
-      const route = this.routes.find(route => params = route.match(url))
+      const {path, query} = req
+      const route = this.routes.find(route => params = route.match(path))
 
       if (route) {
         app.render(req, res, route.page, Object.assign({}, query, params))
@@ -76,8 +76,8 @@ class Route {
     this.getAs = pathToRegexp.compile(pattern)
   }
 
-  match(url) {
-    const matches = this.regex.exec(url)
+  match(path) {
+    const matches = this.regex.exec(path)
     if (matches) {
       return this.valuesToParams(matches.slice(1))
     }
