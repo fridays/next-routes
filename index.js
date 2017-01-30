@@ -52,12 +52,12 @@ class Routes {
   getRouter() {
     const NamedRouter = Object.assign({}, Router)
 
-    NamedRouter.pushRoute = (name, params) => {
+    NamedRouter.pushRoute = (name, params = {}) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.push(href, as)
     }
 
-    NamedRouter.replaceRoute = (name, params) => {
+    NamedRouter.replaceRoute = (name, params = {}) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.replace(href, as)
     }
