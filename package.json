@@ -21,6 +21,6 @@
   },
   "peerDependencies": {
     "next": "^2.0.0-beta",
-    "react": "^15.4.2"
+    "react": "^15.4.1"
   }
 }
