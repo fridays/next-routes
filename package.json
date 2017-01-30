@@ -1,0 +1,26 @@
+{
+  "name": "next-routes",
+  "version": "1.0.0",
+  "description": "Universal named routes for next.js",
+  "repository": "fridays/next-routes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "next",
+    "next.js",
+    "route",
+    "routes",
+    "routing"
+  ],
+  "author": "fridays",
+  "license": "MIT",
+  "dependencies": {
+    "path-to-regexp": "^1.7.0"
+  },
+  "peerDependencies": {
+    "next": "^2.0.0-beta",
+    "react": "^15.4.2"
+  }
+}
