@@ -34,7 +34,18 @@ API: `routes.add(name, pattern, page = name)`
 - `pattern` - Express-style route pattern (uses [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
 - `page` - Page inside `./pages` to be rendered (defaults to `name`)
 
-The page component receives the matched URL parameters merged into `req.query`
+The page component receives the matched URL parameters merged into `query`
+
+```javascript
+export default class Blog extends React.Component() {
+  static async getInitialProps({query}) {
+    // query.slug
+  }
+  render() {
+    // this.props.url.query.slug
+  }
+}
+```
 
 ### On the server
 
