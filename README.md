@@ -60,7 +60,7 @@ Thin wrappers around `Link` and `Router` add support for generated URLs based on
 
 #### `Link` example
 
-```javascript
+```jsx
 // pages/index.js
 import {Link} from '../routes'
 
@@ -85,7 +85,7 @@ It generates the URL and passes `href` and `as` props to `next/link`.
 
 #### `Router` example
 
-```javascript
+```jsx
 // pages/blog.js
 import {Router} from '../routes'
 
