@@ -1,10 +1,12 @@
 {
   "name": "next-routes",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Universal named routes for next.js",
   "repository": "fridays/next-routes",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build"
