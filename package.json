@@ -3,9 +3,11 @@
   "version": "1.0.6",
   "description": "Universal named routes for next.js",
   "repository": "fridays/next-routes",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files": ["dist"],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "next",
@@ -22,5 +24,9 @@
   "peerDependencies": {
     "next": "^2.0.0-beta",
     "react": "^15.4.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-latest": "^6.22.0"
   }
 }
