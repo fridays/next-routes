@@ -1,6 +1,6 @@
 # Named routes for next.js
 
-[![npm version](https://badge.fury.io/js/next-routes.svg?v=1.0.7.0)](https://badge.fury.io/js/next-routes)
+![npm version](https://img.shields.io/badge/npm%20package-1.0.8-brightgreen.svg)
 
 Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
 
