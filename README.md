@@ -1,6 +1,6 @@
 # Named routes for next.js
 
-![npm version](https://img.shields.io/badge/npm%20package-1.0.9-brightgreen.svg)
+![npm version](https://img.shields.io/badge/npm%20package-1.0.9-brightgreen.svg?v=1)
 
 Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
 
