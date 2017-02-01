@@ -73,7 +73,7 @@ class Route {
   constructor(name, pattern, page = name) {
     this.name = name
     this.pattern = pattern
-    this.page = page
+    this.page = page.replace(/^\/?(.*)/, '/$1')
     this.regex = pathToRegexp(pattern, this.keys = [])
     this.getAs = pathToRegexp.compile(pattern)
   }
@@ -97,7 +97,7 @@ class Route {
       encodeURIComponent(params[key])
     ].join('=')).join('&')
 
-    return `/${this.page}?${qs}`
+    return `${this.page}?${qs}`
   }
 
   getLinkProps(params) {
