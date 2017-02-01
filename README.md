@@ -1,6 +1,6 @@
 # Named routes for next.js
 
-![npm version](https://img.shields.io/badge/npm%20package-1.0.8-brightgreen.svg)
+![npm version](https://img.shields.io/badge/npm%20package-1.0.9-brightgreen.svg)
 
 Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
 
@@ -126,6 +126,19 @@ API:
 - `params` - Optional parameters for the route URL
 
 It generates the URL and passes `href` and `as` parameters to `next/router`.
+
+---
+
+Since version 1.0.9 you can optionally provide custom `Link` and `Router` objects, for example:
+
+```javascript
+// routes.js
+const nextRoutes = require('next-routes')
+const Link = require('next/prefetch').default
+const Router = require('./my/router')
+const routes = module.exports = nextRoutes({Link, Router})
+```
+
 
 ---
 ##### Related links

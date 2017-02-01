@@ -1,13 +1,15 @@
-const pathToRegexp = require('path-to-regexp')
-const React = require('react')
-const Link = require('next/link').default
-const Router = require('next/router').default
+import pathToRegexp from 'path-to-regexp'
+import React from 'react'
+import {default as NextLink} from 'next/link'
+import {default as NextRouter} from 'next/router'
+
+module.exports = opts => new Routes(opts)
 
 class Routes {
-  constructor() {
+  constructor({Link = NextLink, Router = NextRouter} = {}) {
     this.routes = []
-    this.Link = this.getLinkComponent()
-    this.Router = this.getRouter()
+    this.Link = this.getLink(Link)
+    this.Router = this.getRouter(Router)
   }
 
   add(name, pattern, page) {
@@ -19,53 +21,53 @@ class Routes {
     return this.routes.find(route => route.name === name)
   }
 
+  match(path) {
+    let params
+    const route = this.routes.find(route => params = route.match(path))
+    return {route, params}
+  }
+
   getRequestHandler(app) {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
-      let params
       const {path, query} = req
-      const route = this.routes.find(route => params = route.match(path))
+      const {route, params} = this.match(path)
 
       if (route) {
-        app.render(req, res, route.page, Object.assign({}, query, params))
+        app.render(req, res, route.page, {...query, ...params})
       } else {
         nextHandler(req, res)
       }
     }
   }
 
-  getLinkComponent() {
+  getLink(Link) {
     return props => {
-      const {route, params} = props
-      let newProps
+      const {route, params, ...newProps} = props
 
       if (route) {
-        newProps = Object.assign({}, props,
-          this.findByName(route).getLinkProps(params))
+        Object.assign(newProps, this.findByName(route).getLinkProps(params))
       }
 
-      return React.createElement(Link, newProps || props)
+      return <Link {...newProps} />
     }
   }
 
-  getRouter() {
-    const NamedRouter = Object.assign({}, Router)
-
-    NamedRouter.pushRoute = (name, params = {}) => {
+  getRouter(Router) {
+    const pushRoute = (name, params = {}) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.push(href, as)
     }
 
-    NamedRouter.replaceRoute = (name, params = {}) => {
+    const replaceRoute = (name, params = {}) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.replace(href, as)
     }
 
-    return NamedRouter
+    return {...Router, pushRoute, replaceRoute}
   }
 }
-
 
 class Route {
   constructor(name, pattern, page = name) {
@@ -77,9 +79,9 @@ class Route {
   }
 
   match(path) {
-    const matches = this.regex.exec(path)
-    if (matches) {
-      return this.valuesToParams(matches.slice(1))
+    const values = this.regex.exec(path)
+    if (values) {
+      return this.valuesToParams(values.slice(1))
     }
   }
 
@@ -104,8 +106,3 @@ class Route {
     return {as, href}
   }
 }
-
-
-module.exports = () => new Routes()
-exports.Routes = Routes
-exports.Route = Route
