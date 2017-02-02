@@ -9,7 +9,14 @@
   ],
   "scripts": {
     "build": "babel src --out-dir dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "lint": "standard 'src/*'"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/node_modules/**"
+    ]
   },
   "keywords": [
     "next",
@@ -30,8 +37,10 @@
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
+    "babel-eslint": "^7.1.1",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.22.0"
+    "babel-preset-react": "^6.22.0",
+    "standard": "^8.6.0"
   }
 }

@@ -6,33 +6,36 @@ import {default as NextRouter} from 'next/router'
 module.exports = opts => new Routes(opts)
 
 class Routes {
-  constructor({Link = NextLink, Router = NextRouter} = {}) {
+  constructor ({Link = NextLink, Router = NextRouter} = {}) {
     this.routes = []
     this.Link = this.getLink(Link)
     this.Router = this.getRouter(Router)
   }
 
-  add(name, pattern, page) {
+  add (name, pattern, page) {
     const route = new Route(name, pattern, page)
     this.routes.push(route)
   }
 
-  findByName(name) {
+  findByName (name) {
     return this.routes.find(route => route.name === name)
   }
 
-  match(path) {
-    let params
-    const route = this.routes.find(route => params = route.match(path))
-    return {route, params}
+  match (path) {
+    for (let route of this.routes) {
+      const params = route.match(path)
+      if (params) {
+        return {route, params}
+      }
+    }
   }
 
-  getRequestHandler(app) {
+  getRequestHandler (app) {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
       const {path, query} = req
-      const {route, params} = this.match(path)
+      const {route, params} = this.match(path) || {}
 
       if (route) {
         app.render(req, res, route.page, {...query, ...params})
@@ -42,7 +45,7 @@ class Routes {
     }
   }
 
-  getLink(Link) {
+  getLink (Link) {
     return props => {
       const {route, params, ...newProps} = props
 
@@ -54,7 +57,7 @@ class Routes {
     }
   }
 
-  getRouter(Router) {
+  getRouter (Router) {
     const pushRoute = (name, params = {}) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.push(href, as)
@@ -70,7 +73,7 @@ class Routes {
 }
 
 class Route {
-  constructor(name, pattern, page = name) {
+  constructor (name, pattern, page = name) {
     this.name = name
     this.pattern = pattern
     this.page = page.replace(/^\/?(.*)/, '/$1')
@@ -78,20 +81,20 @@ class Route {
     this.getAs = pathToRegexp.compile(pattern)
   }
 
-  match(path) {
+  match (path) {
     const values = this.regex.exec(path)
     if (values) {
       return this.valuesToParams(values.slice(1))
     }
   }
 
-  valuesToParams(values) {
+  valuesToParams (values) {
     return values.reduce((params, val, i) => (
       Object.assign(params, {[this.keys[i].name]: val})
     ), {})
   }
 
-  getHref(params) {
+  getHref (params) {
     const qs = Object.keys(params).map(key => [
       encodeURIComponent(key),
       encodeURIComponent(params[key])
@@ -100,7 +103,7 @@ class Route {
     return `${this.page}?${qs}`
   }
 
-  getLinkProps(params) {
+  getLinkProps (params) {
     const as = this.getAs(params)
     const href = this.getHref(params)
     return {as, href}
