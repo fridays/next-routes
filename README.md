@@ -1,6 +1,6 @@
 # Named routes for next.js
 
-![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.0.10&x2=0)
+[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.0.10&x2=0)](https://www.npmjs.com/package/next-routes)
 
 Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
 
