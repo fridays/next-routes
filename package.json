@@ -13,10 +13,7 @@
     "lint": "standard 'src/*'"
   },
   "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "**/node_modules/**"
-    ]
+    "parser": "babel-eslint"
   },
   "keywords": [
     "next",

@@ -22,12 +22,9 @@ class Routes {
   }
 
   match (path) {
-    for (let route of this.routes) {
-      const params = route.match(path)
-      if (params) {
-        return {route, params}
-      }
-    }
+    let params
+    const route = this.routes.find(route => params = route.match(path)) // eslint-disable-line no-return-assign
+    return {route, params}
   }
 
   getRequestHandler (app) {
@@ -35,7 +32,7 @@ class Routes {
 
     return (req, res) => {
       const {path, query} = req
-      const {route, params} = this.match(path) || {}
+      const {route, params} = this.match(path)
 
       if (route) {
         app.render(req, res, route.page, {...query, ...params})
