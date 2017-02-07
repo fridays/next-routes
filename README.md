@@ -5,7 +5,7 @@
 Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
 
 - Express-style route and parameters matching
-- Request handler middleware for express.js
+- Request handler middleware for express & co
 - `Link` and `Router` that generate URLs by route name
 
 ## How to use
@@ -49,20 +49,25 @@ export default class Blog extends React.Component {
 
 ### On the server
 
-Usage with express.js
-
 ```javascript
 // server.js
-const express = require('express')
 const next = require('next')
-const app = next({dev: process.env.NODE_ENV !== 'production'})
 const routes = require('./routes')
+const app = next({dev: process.env.NODE_ENV !== 'production'})
+const handler = routes.getRequestHandler(app)
 
+// With express.js
+const express = require('express')
 app.prepare().then(() => {
-  const server = express()
-    .use(routes.getRequestHandler(app))
-    .listen(3000)
+  express().use(handler).listen(3000)
 })
+
+// Without express.js
+const {createServer} = require('http')
+app.prepare().then(() => {
+  createServer(handler).listen(3000)
+})
+
 ```
 
 ### On the client
@@ -129,7 +134,7 @@ It generates the URL and passes `href` and `as` parameters to `next/router`.
 
 ---
 
-Since version 1.0.9 you can optionally provide custom `Link` and `Router` objects, for example:
+You can optionally provide custom `Link` and `Router` objects, for example:
 
 ```javascript
 // routes.js
@@ -138,7 +143,6 @@ const Link = require('next/prefetch').default
 const Router = require('./my/router')
 const routes = module.exports = nextRoutes({Link, Router})
 ```
-
 
 ---
 ##### Related links

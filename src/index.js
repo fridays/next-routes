@@ -1,15 +1,19 @@
 import pathToRegexp from 'path-to-regexp'
 import React from 'react'
-import {default as NextLink} from 'next/link'
-import {default as NextRouter} from 'next/router'
+import {parse} from 'url'
+import Link from 'next/link'
+import Router from 'next/router'
 
 module.exports = opts => new Routes(opts)
 
 class Routes {
-  constructor ({Link = NextLink, Router = NextRouter} = {}) {
+  constructor ({
+    WrapLink = Link,
+    WrapRouter = Router
+  } = {}) {
     this.routes = []
-    this.Link = this.getLink(Link)
-    this.Router = this.getRouter(Router)
+    this.Link = this.getLink(WrapLink)
+    this.Router = this.getRouter(WrapRouter)
   }
 
   add (name, pattern, page) {
@@ -23,7 +27,7 @@ class Routes {
 
   match (path) {
     let params
-    const route = this.routes.find(route => params = route.match(path)) // eslint-disable-line no-return-assign
+    const route = this.routes.find(route => (params = route.match(path)))
     return {route, params}
   }
 
@@ -31,8 +35,8 @@ class Routes {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
-      const {path, query} = req
-      const {route, params} = this.match(path)
+      const {pathname, query} = parse(req.url, true)
+      const {route, params} = this.match(pathname)
 
       if (route) {
         app.render(req, res, route.page, {...query, ...params})
@@ -91,7 +95,7 @@ class Route {
     ), {})
   }
 
-  getHref (params) {
+  getHref (params = {}) {
     const qs = Object.keys(params).map(key => [
       encodeURIComponent(key),
       encodeURIComponent(params[key])
@@ -100,7 +104,7 @@ class Route {
     return `${this.page}?${qs}`
   }
 
-  getLinkProps (params) {
+  getLinkProps (params = {}) {
     const as = this.getAs(params)
     const href = this.getHref(params)
     return {as, href}
