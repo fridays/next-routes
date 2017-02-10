@@ -127,7 +127,7 @@ API:
 
 `Router.replaceRoute(name, params)`
 
-- `route` - Name of a route
+- `name` - Name of a route
 - `params` - Optional parameters for the route URL
 
 It generates the URL and passes `href` and `as` parameters to `next/router`.
