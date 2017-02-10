@@ -20,6 +20,7 @@ class Routes {
   add (name, pattern, page) {
     const route = new Route(name, pattern, page)
     this.routes.push(route)
+    return this
   }
 
   findByName (name) {
