@@ -38,10 +38,10 @@ The page component receives the matched URL parameters merged into `query`
 
 ```javascript
 export default class Blog extends React.Component {
-  static async getInitialProps({query}) {
+  static async getInitialProps ({query}) {
     // query.slug
   }
-  render() {
+  render () {
     // this.props.url.query.slug
   }
 }
@@ -83,11 +83,12 @@ import {Link} from '../routes'
 export default () => (
   <div>
     <div>Welcome to next.js!</div>
-    <Link route="blog" params={{slug: 'hello-world'}}>
+    <Link route='blog' params={{slug: 'hello-world'}}>
       <a>Hello world</a>
     </Link>
   </div>
 )
+
 ```
 
 API: `<Link route="name" params={params}>...</Link>`
@@ -106,10 +107,10 @@ It generates the URL and passes `href` and `as` props to `next/link`.
 import {Router} from '../routes'
 
 export default class extends React.Component {
-  handleClick() {
+  handleClick () {
     Router.pushRoute('about', {foo: 'bar'})
   }
-  render() {
+  render () {
     return (
       <div>
         <div>{this.props.url.query.slug}</div>
