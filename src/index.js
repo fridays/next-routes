@@ -1,6 +1,7 @@
 import pathToRegexp from 'path-to-regexp'
 import React from 'react'
 import {parse} from 'url'
+import isarray from 'isarray'
 import Link from 'next/link'
 import Router from 'next/router'
 
@@ -96,10 +97,16 @@ class Route {
   }
 
   getHref (params = {}) {
-    const qs = Object.keys(params).map(key => [
-      encodeURIComponent(key),
-      encodeURIComponent(params[key])
-    ].join('=')).join('&')
+    const qs = Object.keys(params).map(key => {
+      let value = params[key]
+      if (isarray(value)) {
+        value = value.join('/')
+      }
+      return [
+        encodeURIComponent(key),
+        encodeURIComponent(value)
+      ].join('=')
+    }).join('&')
 
     return `${this.page}?${qs}`
   }
