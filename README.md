@@ -114,7 +114,7 @@ export default class extends React.Component {
     return (
       <div>
         <div>{this.props.url.query.slug}</div>
-        <button onClick={this.handleClick.bind(this)}>
+        <button onClick={this.handleClick}>
           Home
         </button>
       </div>
