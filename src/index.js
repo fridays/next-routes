@@ -36,13 +36,14 @@ class Routes {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
-      const {pathname, query} = parse(req.url, true)
+      const url = parse(req.url, true)
+      const {pathname, query} = url
       const {route, params} = this.match(pathname)
 
       if (route) {
         app.render(req, res, route.page, {...query, ...params})
       } else {
-        nextHandler(req, res)
+        nextHandler(req, res, url)
       }
     }
   }
