@@ -6,6 +6,15 @@ import Router from 'next/router'
 
 module.exports = opts => new Routes(opts)
 
+const nextPaths = [
+  '/_next/',
+  '/_webpack/',
+  '/__webpack_hmr',
+  '/static/'
+]
+
+const isNextPath = url => nextPaths.some(path => url.startsWith(path))
+
 class Routes {
   constructor ({
     WrapLink = Link,
@@ -36,14 +45,19 @@ class Routes {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
-      const url = parse(req.url, true)
-      const {pathname, query} = url
-      const {route, params} = this.match(pathname)
+      const parsedUrl = parse(req.url, true)
+      const {pathname, query} = parsedUrl
 
-      if (route) {
-        app.render(req, res, route.page, {...query, ...params})
+      if (isNextPath(pathname)) {
+        nextHandler(req, res, parsedUrl)
       } else {
-        nextHandler(req, res, url)
+        const {route, params} = this.match(pathname)
+
+        if (route) {
+          app.render(req, res, route.page, {...query, ...params})
+        } else {
+          nextHandler(req, res, parsedUrl)
+        }
       }
     }
   }
