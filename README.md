@@ -104,6 +104,7 @@ It generates the URL and passes `href` and `as` props to `next/link`.
 
 ```jsx
 // pages/blog.js
+import React from 'react'
 import {Router} from '../routes'
 
 export default class extends React.Component {
