@@ -29,7 +29,11 @@ class Routes {
   }
 
   findByName (name) {
-    return this.routes.find(route => route.name === name)
+    const route = this.routes.find(route => route.name === name)
+    if (route === undefined) {
+      throw new Error(`Unknown route: $(name)`)
+    }
+    return route
   }
 
   match (path) {
