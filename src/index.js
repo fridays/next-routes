@@ -7,13 +7,11 @@ import Router from 'next/router'
 module.exports = opts => new Routes(opts)
 
 const nextPaths = [
-  '/_next/',
+  '/_next',
   '/_webpack/',
   '/__webpack_hmr',
   '/static/'
 ]
-
-const isNextPath = url => nextPaths.some(path => url.startsWith(path))
 
 class Routes {
   constructor ({
@@ -25,9 +23,8 @@ class Routes {
     this.Router = this.getRouter(WrapRouter)
   }
 
-  add (name, pattern, page) {
-    const route = new Route(name, pattern, page)
-    this.routes.push(route)
+  add (...args) {
+    this.routes.push(new Route(...args))
     return this
   }
 
@@ -41,6 +38,10 @@ class Routes {
     return {route, params}
   }
 
+  isNextPath (url) {
+    return nextPaths.some(path => url.startsWith(path))
+  }
+
   getRequestHandler (app) {
     const nextHandler = app.getRequestHandler()
 
@@ -48,7 +49,7 @@ class Routes {
       const parsedUrl = parse(req.url, true)
       const {pathname, query} = parsedUrl
 
-      if (isNextPath(pathname)) {
+      if (this.isNextPath(pathname)) {
         nextHandler(req, res, parsedUrl)
       } else {
         const {route, params} = this.match(pathname)
@@ -92,10 +93,10 @@ class Routes {
 class Route {
   constructor (name, pattern, page = name) {
     this.name = name
-    this.pattern = pattern
+    this.pattern = pattern || `/${name}`
     this.page = page.replace(/^\/?(.*)/, '/$1')
-    this.regex = pathToRegexp(pattern, this.keys = [])
-    this.getAs = pathToRegexp.compile(pattern)
+    this.regex = pathToRegexp(this.pattern, this.keys = [])
+    this.getAs = pathToRegexp.compile(this.pattern)
   }
 
   match (path) {
