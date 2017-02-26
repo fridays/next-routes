@@ -31,7 +31,7 @@ class Routes {
   findByName (name) {
     const route = this.routes.find(route => route.name === name)
     if (!route) {
-      throw new Error(`Unknown route: $(name)`)
+      throw new Error(`Unknown route: ${name}`)
     }
     return route
   }
