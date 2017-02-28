@@ -10,7 +10,8 @@
   "scripts": {
     "build": "babel src --out-dir dist",
     "prepublish": "npm run build",
-    "lint": "standard 'src/*'"
+    "lint": "standard 'src/*'",
+    "test": "npm run lint"
   },
   "pre-commit": [
     "lint"
