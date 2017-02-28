@@ -13,9 +13,6 @@
     "lint": "standard 'src/*'",
     "test": "npm run lint"
   },
-  "pre-commit": [
-    "lint"
-  ],
   "standard": {
     "parser": "babel-eslint"
   },
