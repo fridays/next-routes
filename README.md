@@ -14,6 +14,10 @@ Install:
 
 ```bash
 npm i --save next-routes
+
+# or
+
+yarn add next-routes
 ```
 
 Create `routes.js` inside your project root:
