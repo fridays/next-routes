@@ -90,7 +90,7 @@ class Routes {
       return Router.replace(href, as)
     }
 
-    return {...Router, pushRoute, replaceRoute}
+    return Object.assign(Object.create(Router), {pushRoute, replaceRoute})
   }
 }
 
