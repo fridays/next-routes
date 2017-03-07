@@ -1,8 +1,8 @@
 import pathToRegexp from 'path-to-regexp'
 import React from 'react'
 import {parse} from 'url'
-import Link from 'next/link'
-import Router from 'next/router'
+import NextLink from 'next/link'
+import NextRouter from 'next/router'
 
 module.exports = opts => new Routes(opts)
 
@@ -15,12 +15,12 @@ const nextPaths = [
 
 class Routes {
   constructor ({
-    WrapLink = Link,
-    WrapRouter = Router
+    Link = NextLink,
+    Router = NextRouter
   } = {}) {
     this.routes = []
-    this.Link = this.getLink(WrapLink)
-    this.Router = this.getRouter(WrapRouter)
+    this.Link = this.getLink(Link)
+    this.Router = this.getRouter(Router)
   }
 
   add (...args) {
