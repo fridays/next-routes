@@ -145,7 +145,7 @@ You can optionally provide custom `Link` and `Router` objects, for example:
 ```javascript
 // routes.js
 const nextRoutes = require('next-routes')
-const Link = require('next/prefetch').default
+const Link = require('next/link').default
 const Router = require('./my/router')
 const routes = module.exports = nextRoutes({Link, Router})
 ```
