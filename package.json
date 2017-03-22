@@ -36,11 +36,11 @@
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
-    "babel-eslint": "^7.1.1",
+    "babel-eslint": "^7.2.0",
     "babel-plugin-transform-object-rest-spread": "^6.22.0",
-    "babel-preset-latest": "^6.22.0",
+    "babel-preset-latest": "^6.24.0",
     "babel-preset-react": "^6.22.0",
     "pre-commit": "^1.2.2",
-    "standard": "^9.0.0"
+    "standard": "^9.0.2"
   }
 }
