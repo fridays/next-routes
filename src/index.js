@@ -100,7 +100,8 @@ class Route {
     this.pattern = pattern || `/${name}`
     this.page = page.replace(/^\/?(.*)/, '/$1')
     this.regex = pathToRegexp(this.pattern, this.keys = [])
-    this.getAs = pathToRegexp.compile(this.pattern)
+    this.keyNames = this.keys.map(key => key.name)
+    this.toPath = pathToRegexp.compile(this.pattern)
   }
 
   match (path) {
@@ -111,24 +112,27 @@ class Route {
   }
 
   valuesToParams (values) {
-    return values.reduce((params, val, i) => (
-      Object.assign(params, {[this.keys[i].name]: val})
-    ), {})
+    return values.reduce((params, val, i) => Object.assign(params, {
+      [this.keys[i].name]: val
+    }), {})
   }
 
   getHref (params = {}) {
-    const qs = Object.keys(params).map(key => {
-      let value = params[key]
-      if (Array.isArray(value)) {
-        value = value.join('/')
-      }
-      return [
-        encodeURIComponent(key),
-        encodeURIComponent(value)
-      ].join('=')
-    }).join('&')
+    return `${this.page}?${toQuerystring(params)}`
+  }
 
-    return `${this.page}?${qs}`
+  getAs (params = {}) {
+    const as = this.toPath(params)
+    const keys = Object.keys(params)
+    const qsKeys = keys.filter(key => !this.keyNames.includes(key))
+
+    if (!qsKeys.length) return as
+
+    const qsParams = qsKeys.reduce((qs, key) => Object.assign(qs, {
+      [key]: params[key]
+    }), {})
+
+    return `${as}?${toQuerystring(qsParams)}`
   }
 
   getLinkProps (params = {}) {
@@ -137,3 +141,14 @@ class Route {
     return {as, href}
   }
 }
+
+const toQuerystring = (obj = {}) => Object.keys(obj).map(key => {
+  let value = obj[key]
+  if (Array.isArray(value)) {
+    value = value.join('/')
+  }
+  return [
+    encodeURIComponent(key),
+    encodeURIComponent(value)
+  ].join('=')
+}).join('&')
