@@ -80,14 +80,14 @@ class Routes {
   }
 
   getRouter (Router) {
-    const pushRoute = (name, params = {}) => {
+    const pushRoute = (name, params = {}, options) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
-      return Router.push(href, as)
+      return Router.push(href, as, options)
     }
 
-    const replaceRoute = (name, params = {}) => {
+    const replaceRoute = (name, params = {}, options) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
-      return Router.replace(href, as)
+      return Router.replace(href, as, options)
     }
 
     return Object.assign(Object.create(Router), {pushRoute, replaceRoute})

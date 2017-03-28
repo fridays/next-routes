@@ -129,12 +129,13 @@ export default class extends React.Component {
 ```
 API:
 
-`Router.pushRoute(name, params)`
+`Router.pushRoute(name, params, options)`
 
-`Router.replaceRoute(name, params)`
+`Router.replaceRoute(name, params, options)`
 
 - `name` - Name of a route
 - `params` - Optional parameters for the route URL
+- `options` - Optional options
 
 It generates the URL and passes `href` and `as` parameters to `next/router`.
 
