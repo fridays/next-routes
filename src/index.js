@@ -90,7 +90,12 @@ class Routes {
       return Router.replace(href, as, options)
     }
 
-    return Object.assign(Object.create(Router), {pushRoute, replaceRoute})
+    const prefetchRoute = (name, params = {}) => {
+      const {href} = this.findByName(name).getLinkProps(params)
+      return Router.prefetch(href)
+    }
+
+    return Object.assign(Object.create(Router), {pushRoute, replaceRoute, prefetchRoute})
   }
 }
 
