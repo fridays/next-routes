@@ -80,22 +80,22 @@ class Routes {
   }
 
   getRouter (Router) {
-    const pushRoute = (name, params = {}, options) => {
+    Router.pushRoute = (name, params = {}, options) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.push(href, as, options)
     }
 
-    const replaceRoute = (name, params = {}, options) => {
+    Router.replaceRoute = (name, params = {}, options) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.replace(href, as, options)
     }
 
-    const prefetchRoute = (name, params = {}) => {
+    Router.prefetchRoute = (name, params = {}) => {
       const {href} = this.findByName(name).getLinkProps(params)
       return Router.prefetch(href)
     }
 
-    return Object.assign(Object.create(Router), {pushRoute, replaceRoute, prefetchRoute})
+    return Router
   }
 }
 
