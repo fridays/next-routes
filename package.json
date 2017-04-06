@@ -41,6 +41,6 @@
     "babel-preset-latest": "^6.24.0",
     "babel-preset-react": "^6.22.0",
     "pre-commit": "^1.2.2",
-    "standard": "^9.0.2"
+    "standard": "^10.0.0"
   }
 }
