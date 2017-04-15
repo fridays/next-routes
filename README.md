@@ -104,7 +104,7 @@ It generates the URL and passes `href` and `as` props to `next/link`.
 
 #### Href support ####
 
-If you prefer to use `href` our `route` and `params`, simply use the `href` prop. href would be matched to its route and params. However, you need to configure the `origin` option when instantiating nextRoute for SSR.
+If you prefer to use `href` instead of `route` and `params`, simply use the `href` prop. The href would be matched to its route and params. However, you need to configure the `origin` option when instantiating nextRoute for SSR.
 
 ```jsx
 // server.js
