@@ -136,6 +136,7 @@ API:
 - `name` - Name of a route
 - `params` - Optional parameters for the route URL
 - `options` - Optional options
+- `context` - Optional server-side context for redirects on server
 
 It generates the URL and passes `href` and `as` parameters to `next/router`.
 
