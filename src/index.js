@@ -72,7 +72,7 @@ class Routes {
     Router.replaceRoute = (name, params = {}, options, ctx) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       if (ctx) {
-        ctx.res.writeHead(302, { Location: path })
+        ctx.res.writeHead(302, { Location: href })
         return ctx.res.end()
       }
       return Router.replace(href, as, options)
