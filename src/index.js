@@ -55,7 +55,8 @@ class Routes {
 
   getLink (Link) {
     return props => {
-      const {route, params, href, ...newProps} = props
+      const {route, params, ...newProps} = props
+      let href = newProps.href
 
       if (route) {
         Object.assign(newProps, this.findByName(route).getLinkProps(params))
