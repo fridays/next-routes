@@ -10,7 +10,7 @@ class Routes {
   constructor ({
     Link = NextLink,
     Router = NextRouter,
-    origin,
+    origin
   } = {}) {
     this.routes = []
     this.Link = this.getLink(Link)
