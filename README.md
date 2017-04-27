@@ -100,7 +100,7 @@ API: `<Link route="name" params={params}>...</Link>`
 - `route` - Name of a route
 - `params` - Optional parameters for the route URL
 
-It generates the URL and passes `href` and `as` props to `next/link`.
+It generates the URL and passes `href` and `as` props to `next/link`. Other props like `prefetch` will work as well.
 
 ---
 
