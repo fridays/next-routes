@@ -1,5 +1,7 @@
 # Named routes for next.js
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fridays/next-routes.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/fridays/next-routes.svg?branch=master)](https://travis-ci.org/fridays/next-routes) [![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.0.24&x2=0)](https://www.npmjs.com/package/next-routes)
 
 Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
