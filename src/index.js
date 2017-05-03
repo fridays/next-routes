@@ -113,7 +113,7 @@ class Route {
   getAs (params = {}) {
     const as = this.toPath(params)
     const keys = Object.keys(params)
-    const qsKeys = keys.filter(key => !this.keyNames.includes(key))
+    const qsKeys = keys.filter(key => this.keyNames.indexOf(key) !== -1)
 
     if (!qsKeys.length) return as
 
