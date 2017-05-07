@@ -72,7 +72,7 @@ class Routes {
         //  Find matching routes
         const { route, params } = this.match(href)
         if (route) {
-          Object.assign(newProps, { route: route.name, params })
+          Object.assign(newProps, { route: route.name }, route.getLinkProps(params))
         }
       }
 
