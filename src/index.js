@@ -3,6 +3,8 @@ import React from 'react'
 import {parse} from 'url'
 import NextLink from 'next/link'
 import NextRouter from 'next/router'
+import find from 'array-find'
+import includes from 'array-includes'
 
 module.exports = opts => new Routes(opts)
 
@@ -22,7 +24,7 @@ class Routes {
   }
 
   findByName (name) {
-    const route = this.routes.find(route => route.name === name)
+    const route = find(this.routes, route => route.name === name)
     if (!route) {
       throw new Error(`Unknown route: ${name}`)
     }
@@ -31,7 +33,7 @@ class Routes {
 
   match (path) {
     let params
-    const route = this.routes.find(route => (params = route.match(path)))
+    const route = find(this.routes, route => (params = route.match(path)))
     return {route, params}
   }
 
@@ -113,7 +115,7 @@ class Route {
   getAs (params = {}) {
     const as = this.toPath(params)
     const keys = Object.keys(params)
-    const qsKeys = keys.filter(key => !this.keyNames.includes(key))
+    const qsKeys = keys.filter(key => !includes(this.keyNames, key))
 
     if (!qsKeys.length) return as
 
