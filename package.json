@@ -1,6 +1,6 @@
 {
   "name": "next-routes",
-  "version": "1.0.25",
+  "version": "1.0.26",
   "description": "Universal named routes for next.js",
   "repository": "fridays/next-routes",
   "main": "dist/index.js",
