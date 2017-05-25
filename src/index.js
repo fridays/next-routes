@@ -54,7 +54,7 @@ class Routes {
   }
 
   getLink (Link) {
-    return props => {
+    const LinkRoutes = props => {
       const {route, params, ...newProps} = props
 
       if (route) {
@@ -63,6 +63,7 @@ class Routes {
 
       return <Link {...newProps} />
     }
+    return LinkRoutes
   }
 
   getRouter (Router) {
