@@ -13,11 +13,7 @@ Easy to use universal named routes for [next.js](https://github.com/zeit/next.js
 Install:
 
 ```bash
-npm i --save next-routes
-
-# or
-
-yarn add next-routes
+npm install next-routes
 ```
 
 Create `routes.js` inside your project root:
