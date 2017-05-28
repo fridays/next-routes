@@ -8,6 +8,19 @@ Easy to use universal named routes for [next.js](https://github.com/zeit/next.js
 - Request handler middleware for express & co
 - `Link` and `Router` that generate URLs by route name
 
+## Require
+
+Install `babel-polyfill`
+
+```bash
+npm install --save babel-polyfill
+```
+
+And include it at main js file or webpack config as follow:
+
+[https://babeljs.io/docs/usage/polyfill/](https://babeljs.io/docs/usage/polyfill/)
+
+
 ## How to use
 
 Install:
