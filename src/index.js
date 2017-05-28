@@ -58,7 +58,14 @@ class Routes {
       const {route, params, ...newProps} = props
 
       if (route) {
-        Object.assign(newProps, this.findByName(route).getLinkProps(params))
+        const linkProps = this.findByName(route).getLinkProps(params)
+      
+        if (newProps.target && newProps.target !== '_self') {
+          Object.assign(newProps, { href: linkProps.href })
+          return <a {...newProps} />
+        } else {
+          Object.assign(newProps, linkProps)
+        }
       }
 
       return <Link {...newProps} />
