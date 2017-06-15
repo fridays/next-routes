@@ -4,7 +4,6 @@ import {parse} from 'url'
 import NextLink from 'next/link'
 import NextRouter from 'next/router'
 import find from 'array-find'
-import includes from 'array-includes'
 
 module.exports = opts => new Routes(opts)
 
@@ -116,7 +115,7 @@ class Route {
   getAs (params = {}) {
     const as = this.toPath(params)
     const keys = Object.keys(params)
-    const qsKeys = keys.filter(key => !includes(this.keyNames, key))
+    const qsKeys = keys.filter(key => this.keyNames.indexOf(key) === -1)
 
     if (!qsKeys.length) return as
 
