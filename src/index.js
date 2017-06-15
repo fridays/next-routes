@@ -55,10 +55,15 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route, params, ...newProps} = props
+      const {route, params, path, ...newProps} = props
 
       if (route) {
         Object.assign(newProps, this.findByName(route).getLinkProps(params))
+      }
+
+      if (path) {
+        const {route: routeObj, params: paramsObj} = this.match(path)
+        Object.assign(newProps, routeObj.getLinkProps(paramsObj))
       }
 
       return <Link {...newProps} />
@@ -67,6 +72,12 @@ class Routes {
   }
 
   getRouter (Router) {
+    Router.pushPath = (path, options) => {
+      const {route: routeObj, params: paramsObj} = this.match(path)
+      const {href, as} = routeObj.getLinkProps(paramsObj)
+      return Router.push(href, as, options)
+    }
+
     Router.pushRoute = (name, params = {}, options) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.push(href, as, options)

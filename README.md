@@ -72,7 +72,7 @@ app.prepare().then(() => {
 
 ### On the client
 
-Thin wrappers around `Link` and `Router` add support for generated URLs based on route name and parameters. Just import them from your `routes` file:
+Thin wrappers around `Link` and `Router` add support for generated URLs based on route name and parameters or path url. Just import them from your `routes` file:
 
 #### `Link` example
 
@@ -91,10 +91,26 @@ export default () => (
 
 ```
 
+```jsx
+// pages/index.js
+import {Link} from '../routes'
+
+export default () => (
+  <div>
+    <div>Welcome to next.js!</div>
+    <Link path='/some-path-conform-to-a-route-patter'>
+      <a>Hello world</a>
+    </Link>
+  </div>
+)
+
+```
+
 API: `<Link route="name" params={params}>...</Link>`
 
 - `route` - Name of a route
 - `params` - Optional parameters for the route URL
+- `path`- A path supposed to follow a route pattern. From the path the right route and params are found. NOTE: `path`and `route` exclusive and if present `route` takes precedence over `path`.
 
 It generates the URL and passes `href` and `as` props to `next/link`. Other props like `prefetch` will work as well.
 
@@ -126,6 +142,8 @@ export default class extends React.Component {
 API:
 
 `Router.pushRoute(name, params, options)`
+
+`Router.pushRoute(path, options)`
 
 `Router.replaceRoute(name, params, options)`
 
