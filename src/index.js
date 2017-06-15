@@ -16,6 +16,7 @@ class Routes {
     this.routes = []
     this.Link = this.getLink(Link)
     this.Router = this.getRouter(Router)
+    this.options = {}
   }
 
   add (...args) {
@@ -37,8 +38,9 @@ class Routes {
     return {route, params}
   }
 
-  getRequestHandler (app) {
+  getRequestHandler (app, options = {}) {
     const nextHandler = app.getRequestHandler()
+    this.options = Object.assign({}, this.options, options)
 
     return (req, res) => {
       const parsedUrl = parse(req.url, true)
@@ -46,7 +48,11 @@ class Routes {
       const {route, params} = this.match(pathname)
 
       if (route) {
-        app.render(req, res, route.page, {...query, ...params})
+        if (this.options.routeFound && typeof this.options.routeFound === 'function') {
+          this.options.routeFound(req, res, route.page, {...query, ...params})
+        } else {
+          app.render(req, res, route.page, {...query, ...params})
+        }
       } else {
         nextHandler(req, res, parsedUrl)
       }
