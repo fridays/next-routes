@@ -16,7 +16,9 @@ class Routes {
     this.routes = []
     this.Link = this.getLink(Link)
     this.Router = this.getRouter(Router)
-    this.options = {}
+    this.options = {
+      routeFound: null
+    }
   }
 
   add (...args) {
