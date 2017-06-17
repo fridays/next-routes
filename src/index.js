@@ -45,7 +45,13 @@ class Routes {
       const {route, params} = this.match(pathname)
 
       if (route) {
-        app.render(req, res, route.page, {...query, ...params})
+        const {middleware, page} = route
+        Object.assign(query, params)
+
+        middleware.reduce((chain, handler) => (
+          chain.then(query => query && handler({app, req, res, route, query}))
+        ), Promise.resolve(query))
+        .then(query => query && app.render(req, res, page, query))
       } else {
         nextHandler(req, res, parsedUrl)
       }
@@ -86,10 +92,16 @@ class Routes {
 }
 
 class Route {
-  constructor (name, pattern, page = name) {
+  constructor (name, pattern, page, middleware) {
+    if (page && typeof page !== 'string') {
+      middleware = page
+      page = null
+    }
+
     this.name = name
     this.pattern = pattern || `/${name}`
-    this.page = page.replace(/^\/?(.*)/, '/$1')
+    this.page = (page || name).replace(/^\/?(.*)/, '/$1')
+    this.middleware = [].concat(middleware || [])
     this.regex = pathToRegexp(this.pattern, this.keys = [])
     this.keyNames = this.keys.map(key => key.name)
     this.toPath = pathToRegexp.compile(this.pattern)
