@@ -86,33 +86,28 @@ export default () => (
     <Link route='blog' params={{slug: 'hello-world'}}>
       <a>Hello world</a>
     </Link>
-  </div>
-)
-
-```
-
-```jsx
-// pages/index.js
-import {Link} from '../routes'
-
-export default () => (
-  <div>
-    <div>Welcome to next.js!</div>
-    <Link path='/some-path-conform-to-a-route-patter'>
-      <a>Hello world</a>
+    <Link path='/about-section'>
+      <a>About</a>
     </Link>
   </div>
 )
-
 ```
 
-API: `<Link route="name" params={params}>...</Link>`
+API: `<Link route="name" href="path" params={params}>...</Link>`
 
 - `route` - Name of a route
 - `params` - Optional parameters for the route URL
-- `path`- A path supposed to follow a route pattern. From the path the right route and params are found. NOTE: `path`and `route` exclusive and if present `route` takes precedence over `path`.
+- `href`- A path supposed to follow a route pattern.
 
 It generates the URL and passes `href` and `as` props to `next/link`. Other props like `prefetch` will work as well.
+`href` takes precedence over `route`. The steps follow the next logic:
+
+- If `href` not is present then use `route`.
+- If `href` is present, try to looking for a route that match the path
+  - If a route is found then use it,
+  - If a route is not found then
+    - if `route` property is present then use it
+    - otherwise pass the `href` to `next/link`
 
 ---
 
@@ -143,7 +138,7 @@ API:
 
 `Router.pushRoute(name, params, options)`
 
-`Router.pushRoute(path, options)`
+`Router.pushHref(href, options)`: Push the given `href`. First tries to find a router that match the `href`. If none if found then the `href` is passed directly to nextjs so it changes the navigation to the page specified by `href`.
 
 `Router.replaceRoute(name, params, options)`
 
