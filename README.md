@@ -32,7 +32,7 @@ API: `routes.add(name, pattern, page = name, middleware)`
 
 - `name` - The route name
 - `pattern` - Express-style route pattern (uses [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
-- `page` - Page inside `./pages` to be rendered (defaults to `name`)
+- *optional:* `page` - Page inside `./pages` to be rendered (defaults to `name`)
 - *optional:* `middleware` - One or many functions to process server-side, one by one, as long as they return a query object or promise.
 
 Middleware example:
