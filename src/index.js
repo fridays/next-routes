@@ -3,7 +3,6 @@ import React from 'react'
 import {parse} from 'url'
 import NextLink from 'next/link'
 import NextRouter from 'next/router'
-import find from 'array-find'
 
 module.exports = opts => new Routes(opts)
 
@@ -23,7 +22,7 @@ class Routes {
   }
 
   findByName (name) {
-    const route = find(this.routes, route => route.name === name)
+    const route = this.routes.filter(route => route.name === name)[0]
     if (!route) {
       throw new Error(`Unknown route: ${name}`)
     }
@@ -32,7 +31,9 @@ class Routes {
 
   match (path) {
     let params
-    const route = find(this.routes, route => (params = route.match(path)))
+    const route = this.routes.filter(
+      route => (params = params || route.match(path))
+    )[0]
     return {route, params}
   }
 
