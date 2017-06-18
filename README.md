@@ -28,11 +28,34 @@ routes.add('about', '/about-us/:foo(bar|baz)', 'index')
 ```
 This file is used both on the server and the client.
 
-API: `routes.add(name, pattern, page = name)`
+API: `routes.add(name, pattern, page = name, middleware)`
 
 - `name` - The route name
 - `pattern` - Express-style route pattern (uses [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
-- `page` - Page inside `./pages` to be rendered (defaults to `name`)
+- *optional:* `page` - Page inside `./pages` to be rendered (defaults to `name`)
+- *optional:* `middleware` - One or many functions to process server-side, one by one, as long as they return a query object or promise.
+
+Middleware example:
+
+```javascript
+routes.add('hi', '/hi/:id', ({app, req, res, route, query}) => {
+  // Return transformed query object
+  return Object.assign(query, {some: 'thing'})
+
+  // or promise
+  return Promise.resolve(Object.assign(query, {some: 'thing'}))
+
+  // or custom render
+  renderAndCache(app, req, res, route.page, query)
+
+  // or redirect
+  res.writeHead(301, {'Location': `/hello/${query.id}`})
+  res.end()
+})
+
+// Array of middleware functions
+routes.add('hi', '/hi/:id', [one, two, three])
+```
 
 The page component receives the matched URL parameters merged into `query`
 
