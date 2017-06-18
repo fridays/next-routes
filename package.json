@@ -28,7 +28,6 @@
   "author": "fridays",
   "license": "MIT",
   "dependencies": {
-    "array-find": "^1.0.0",
     "path-to-regexp": "^1.7.0"
   },
   "peerDependencies": {
