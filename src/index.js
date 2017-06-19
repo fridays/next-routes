@@ -62,7 +62,7 @@ class Routes {
       // then use the route property. Finally use href if it is present but no
       // route match it and no route property is specified.
       if (routeObj) {
-          Object.assign(newProps, routeObj.getLinkProps(paramsObj))
+        Object.assign(newProps, routeObj.getLinkProps(paramsObj))
       } else {
         if (route) {
           Object.assign(newProps, this.findByName(route).getLinkProps(params))
