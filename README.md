@@ -72,7 +72,18 @@ app.prepare().then(() => {
 Optionally you can pass a custom handler, for example:
 ```javascript
 const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
+  // Return transformed query object
+  return Object.assign(query, {some: 'thing'})
+
+  // or promise
+  return Promise.resolve(Object.assign(query, {some: 'thing'}))
+
+  // or custom render
   renderAndCache(req, res, route.page, query)
+
+  // or redirect
+  res.writeHead(301, {'Location': `/hello/${query.id}`})
+  res.end()
 })
 ```
 
