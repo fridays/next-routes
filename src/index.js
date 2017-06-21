@@ -55,10 +55,13 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route, params, ...newProps} = props
+      let {route, params, ...newProps} = props
 
       if (route) {
-        Object.assign(newProps, this.findByName(route).getLinkProps(params))
+        newProps = {
+          ...newProps,
+          ...this.findByName(route).getLinkProps(params)
+        }
       }
 
       return <Link {...newProps} />
@@ -104,9 +107,10 @@ class Route {
   }
 
   valuesToParams (values) {
-    return values.reduce((params, val, i) => Object.assign(params, {
+    return values.reduce((params, val, i) => ({
+      ...params,
       [this.keys[i].name]: val
-    }), {})
+    }))
   }
 
   getHref (params = {}) {
@@ -120,9 +124,10 @@ class Route {
 
     if (!qsKeys.length) return as
 
-    const qsParams = qsKeys.reduce((qs, key) => Object.assign(qs, {
+    const qsParams = qsKeys.reduce((qs, key) => ({
+      ...qs,
       [key]: params[key]
-    }), {})
+    }))
 
     return `${as}?${toQuerystring(qsParams)}`
   }
