@@ -1,6 +1,6 @@
 {
-  "presets": ["latest", "react"],
-  "plugins": [
-    "transform-object-rest-spread"
+  "presets": [
+    "env",
+    "next/babel"
   ]
 }
