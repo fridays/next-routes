@@ -94,8 +94,10 @@ class Routes {
           const {href, as} = route.getLinkProps(params)
           return Router[fn](href, as, options)
         } else {
-          const {route, params, query} = this.match(routeProp)
-          const url = route ? route.getHref({...query, ...params}) : routeProp
+          options = options || params
+          const {route, params: matchParams, query} = this.match(routeProp)
+          Object.assign(query, matchParams)
+          const url = route ? route.getHref(query) : routeProp
           return Router[fn](url, routeProp, options)
         }
       }
