@@ -107,6 +107,16 @@ class Routes {
 
 class Route {
   constructor (name, pattern, page = name) {
+    if (name.charAt(0) === '/') {
+      page = pattern
+      pattern = name
+      name = null
+
+      if (!page) {
+        throw new Error(`Please define a page to render for route "${pattern}"`)
+      }
+    }
+
     this.name = name
     this.pattern = pattern || `/${name}`
     this.page = page.replace(/^\/?(.*)/, '/$1')
