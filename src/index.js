@@ -9,11 +9,13 @@ module.exports = opts => new Routes(opts)
 class Routes {
   constructor ({
     Link = NextLink,
-    Router = NextRouter
+    Router = NextRouter,
+    origin
   } = {}) {
     this.routes = []
     this.Link = this.getLink(Link)
     this.Router = this.getRouter(Router)
+    this.origin = origin
   }
 
   add (...args) {
@@ -62,9 +64,24 @@ class Routes {
   getLink (Link) {
     const LinkRoutes = props => {
       const {route, params, ...newProps} = props
+      let href = newProps.href
 
       if (route) {
         Object.assign(newProps, this.findByName(route).getLinkProps(params))
+      } else if (href) {
+        //  Get origin, either from browser or config
+        let origin = typeof window !== 'undefined' ? window.location.origin : this.origin
+        //  Convert href to relative
+        if (href === origin) {
+          href = '/'
+        } else if (href.indexOf(`${origin}/`) === 0) {
+          href = href.substring(`${origin}/`.length)
+        }
+        //  Find matching routes
+        const { route, params } = this.match(href)
+        if (route) {
+          Object.assign(newProps, { route: route.name }, route.getLinkProps(params))
+        }
       }
 
       return <Link {...newProps} />

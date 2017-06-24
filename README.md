@@ -104,6 +104,29 @@ API: `<Link route="name" params={params}>...</Link>`
 
 It generates the URL and passes `href` and `as` props to `next/link`. Other props like `prefetch` will work as well.
 
+#### Href support ####
+
+If you prefer to use `href` instead of `route` and `params`, simply use the `href` prop. The href would be matched to its route and params. However, you need to configure the `origin` option when instantiating nextRoute for SSR.
+
+```jsx
+// server.js
+const nextRoutes = require('next-routes')
+const routes = module.exports = nextRoutes({ origin: 'https://mydomain.com' })
+
+// pages/index.js
+import {Link} from '../routes'
+
+export default () => (
+  <div>
+    <div>Welcome to next.js!</div>
+    <Link href='https://mydomain.com/blog/hello-world'>
+      <a>Hello world</a>
+    </Link>
+  </div>
+)
+
+``` 
+
 ---
 
 #### `Router` example
