@@ -37,7 +37,7 @@ class Routes {
     return {route, params}
   }
 
-  getRequestHandler (app) {
+  getRequestHandler (app, customHandler) {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
@@ -46,7 +46,13 @@ class Routes {
       const {route, params} = this.match(pathname)
 
       if (route) {
-        app.render(req, res, route.page, {...query, ...params})
+        Object.assign(query, params)
+
+        if (customHandler) {
+          customHandler({req, res, route, query})
+        } else {
+          app.render(req, res, route.page, query)
+        }
       } else {
         nextHandler(req, res, parsedUrl)
       }

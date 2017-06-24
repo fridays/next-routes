@@ -69,6 +69,12 @@ app.prepare().then(() => {
 })
 
 ```
+Optionally you can pass a custom handler, for example:
+```javascript
+const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
+  app.render(req, res, route.page, query)
+})
+```
 
 ### On the client
 
