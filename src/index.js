@@ -22,28 +22,26 @@ class Routes {
   }
 
   findByName (name) {
-    const route = this.routes.filter(route => route.name === name)[0]
-    if (!route) {
-      throw new Error(`Unknown route: ${name}`)
-    }
-    return route
+    return this.routes.filter(route => route.name === name)[0]
   }
 
-  match (path) {
-    let params
-    const route = this.routes.filter(
-      route => (params = params || route.match(path))
-    )[0]
-    return {route, params}
+  match (url) {
+    const parsedUrl = parse(url, true)
+    const {pathname, query} = parsedUrl
+
+    return this.routes.reduce((result, route) => {
+      if (result.route) return result
+      const params = route.match(pathname)
+      if (!params) return result
+      return Object.assign(result, {route, params})
+    }, {pathname, query, parsedUrl})
   }
 
   getRequestHandler (app, customHandler) {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
-      const parsedUrl = parse(req.url, true)
-      const {pathname, query} = parsedUrl
-      const {route, params} = this.match(pathname)
+      const {route, params, query, parsedUrl} = this.match(req.url)
 
       if (route) {
         Object.assign(query, params)
@@ -61,10 +59,23 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route, params, ...newProps} = props
+      const {route: routeProp, params, ...newProps} = props
 
-      if (route) {
-        Object.assign(newProps, this.findByName(route).getLinkProps(params))
+      if (routeProp) {
+        const route = this.findByName(routeProp)
+
+        if (route) {
+          Object.assign(newProps, route.getLinkProps(params))
+        } else {
+          const {route, params, query} = this.match(routeProp)
+
+          if (route) {
+            const href = route.getHref({...query, ...params})
+            Object.assign(newProps, {href, as: routeProp})
+          } else {
+            Object.assign(newProps, {href: routeProp})
+          }
+        }
       }
 
       return <Link {...newProps} />
@@ -73,22 +84,22 @@ class Routes {
   }
 
   getRouter (Router) {
-    Router.pushRoute = (name, params = {}, options) => {
-      const {href, as} = this.findByName(name).getLinkProps(params)
-      return Router.push(href, as, options)
-    }
+    const fns = ['push', 'replace', 'prefetch']
 
-    Router.replaceRoute = (name, params = {}, options) => {
-      const {href, as} = this.findByName(name).getLinkProps(params)
-      return Router.replace(href, as, options)
-    }
+    return fns.reduce((Router, fn) => Object.assign(Router, {
+      [`${fn}Route`]: (routeProp, params = {}, options) => {
+        const route = this.findByName(routeProp)
 
-    Router.prefetchRoute = (name, params = {}) => {
-      const {href} = this.findByName(name).getLinkProps(params)
-      return Router.prefetch(href)
-    }
-
-    return Router
+        if (route) {
+          const {href, as} = route.getLinkProps(params)
+          return Router[fn](href, as, options)
+        } else {
+          const {route, params, query} = this.match(routeProp)
+          const url = route ? route.getHref({...query, ...params}) : routeProp
+          return Router[fn](url, routeProp, options)
+        }
+      }
+    }), Router)
   }
 }
 
