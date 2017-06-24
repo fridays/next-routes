@@ -78,7 +78,7 @@ const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
 
 ### On the client
 
-Thin wrappers around `Link` and `Router` add support for generated URLs based on route name and parameters. Just import them from your `routes` file:
+Thin wrappers around `Link` and `Router` add support for generated URLs based on route name and parameters or path url. Just import them from your `routes` file:
 
 #### `Link` example
 
@@ -92,17 +92,28 @@ export default () => (
     <Link route='blog' params={{slug: 'hello-world'}}>
       <a>Hello world</a>
     </Link>
+    <Link path='/about-section'>
+      <a>About</a>
+    </Link>
   </div>
 )
-
 ```
 
-API: `<Link route="name" params={params}>...</Link>`
+API: `<Link route="name" href="path" params={params}>...</Link>`
 
 - `route` - Name of a route
 - `params` - Optional parameters for the route URL
+- `href`- A path supposed to follow a route pattern.
 
 It generates the URL and passes `href` and `as` props to `next/link`. Other props like `prefetch` will work as well.
+`href` takes precedence over `route`. The steps follow the next logic:
+
+- If `href` not is present then use `route`.
+- If `href` is present, try to looking for a route that match the path
+  - If a route is found then use it,
+  - If a route is not found then
+    - if `route` property is present then use it
+    - otherwise pass the `href` to `next/link`
 
 ---
 
@@ -132,6 +143,8 @@ export default class extends React.Component {
 API:
 
 `Router.pushRoute(name, params, options)`
+
+`Router.pushHref(href, options)`: Push the given `href`. First tries to find a router that match the `href`. If none if found then the `href` is passed directly to nextjs so it changes the navigation to the page specified by `href`.
 
 `Router.replaceRoute(name, params, options)`
 

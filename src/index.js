@@ -61,10 +61,20 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route, params, ...newProps} = props
+      const {route, params, href, ...newProps} = props
+      const {route: routeObj, params: paramsObj} = this.match(href)
 
-      if (route) {
-        Object.assign(newProps, this.findByName(route).getLinkProps(params))
+      // NOTE: The route matched by href takes precedence. If no route match
+      // then use the route property. Finally use href if it is present but no
+      // route match it and no route property is specified.
+      if (routeObj) {
+        Object.assign(newProps, routeObj.getLinkProps(paramsObj))
+      } else {
+        if (route) {
+          Object.assign(newProps, this.findByName(route).getLinkProps(params))
+        } else if (href) {
+          Object.assign(newProps, { href })
+        }
       }
 
       return <Link {...newProps} />
@@ -73,6 +83,18 @@ class Routes {
   }
 
   getRouter (Router) {
+    Router.pushHref = (rhref, options) => {
+      const {route, params} = this.match(rhref)
+
+      if (route) {
+        const {href, as} = route.getLinkProps(params)
+
+        return Router.push(href, as, options)
+      } else {
+        return Router.push(rhref, rhref, options)
+      }
+    }
+
     Router.pushRoute = (name, params = {}, options) => {
       const {href, as} = this.findByName(name).getLinkProps(params)
       return Router.push(href, as, options)
