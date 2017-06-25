@@ -23,16 +23,20 @@ Create `routes.js` inside your project root:
 const nextRoutes = require('next-routes')
 const routes = module.exports = nextRoutes()
 
+// Named routes
 routes.add('blog', '/blog/:slug')
 routes.add('about', '/about-us/:foo(bar|baz)', 'index')
+
+// Unnamed routes
+routes.add('/some/:thing', 'page')
 ```
 This file is used both on the server and the client.
 
 API: `routes.add(name, pattern, page = name)`
 
-- `name` - The route name
+- `name` - Optional: The route name
 - `pattern` - Express-style route pattern (uses [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
-- `page` - Page inside `./pages` to be rendered (defaults to `name`)
+- `page` - Page inside `./pages` to be rendered. Optional for named routes (defaults to `name`), mandatory for unnamed routes.
 
 The page component receives the matched URL parameters merged into `query`
 
