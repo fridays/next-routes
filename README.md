@@ -105,9 +105,9 @@ export default () => (
 
 ```
 
-API: `<Link route="name" params={params}>...</Link>`
+API: `<Link route='name' params={params}>...</Link>`
 
-Or: `<Link route="/path/to/match">...</Link>`
+Or: `<Link route='/path/to/match'>...</Link>`
 
 - `route` - Name of a route or URL to match
 - `params` - Optional parameters for the route URL
@@ -153,19 +153,7 @@ API:
 - `params` - Optional parameters for the route URL
 - `options`
 
-It generates the URL and passes `url` and `as` parameters to `next/router`.
-
----
-
-You can optionally provide custom `Link` and `Router` objects, for example:
-
-```javascript
-// routes.js
-const nextRoutes = require('next-routes')
-const Link = require('./my/link')
-const Router = require('./my/router')
-const routes = module.exports = nextRoutes({Link, Router})
-```
+It generates the URL and passes `url`, `as` and `options` parameters to `next/router`.
 
 ---
 ##### Related links
