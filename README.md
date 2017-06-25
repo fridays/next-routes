@@ -6,7 +6,7 @@ Easy to use universal named routes for [next.js](https://github.com/zeit/next.js
 
 - Express-style route and parameters matching
 - Request handler middleware for express & co
-- `Link` and `Router` that generate URLs by route name
+- `Link` and `Router` that generate URLs by route definition
 
 ## How to use
 
@@ -23,16 +23,20 @@ Create `routes.js` inside your project root:
 const nextRoutes = require('next-routes')
 const routes = module.exports = nextRoutes()
 
+// Named routes
 routes.add('blog', '/blog/:slug')
 routes.add('about', '/about-us/:foo(bar|baz)', 'index')
+
+// Unnamed routes
+routes.add('/some/:thing', 'page')
 ```
 This file is used both on the server and the client.
 
 API: `routes.add(name, pattern, page = name)`
 
-- `name` - The route name
+- `name` - Optional: The route name
 - `pattern` - Express-style route pattern (uses [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
-- `page` - Page inside `./pages` to be rendered (defaults to `name`)
+- `page` - Page inside `./pages` to be rendered. Optional for named routes (defaults to `name`), mandatory for unnamed routes.
 
 The page component receives the matched URL parameters merged into `query`
 
@@ -78,7 +82,7 @@ const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
 
 ### On the client
 
-Thin wrappers around `Link` and `Router` add support for generated URLs based on route name and parameters. Just import them from your `routes` file:
+Thin wrappers around `Link` and `Router` add support for generated URLs based on route definition. Just import them from your `routes` file:
 
 #### `Link` example
 
@@ -92,6 +96,10 @@ export default () => (
     <Link route='blog' params={{slug: 'hello-world'}}>
       <a>Hello world</a>
     </Link>
+    or:
+    <Link route='/blog/hello-world'>
+      <a>Hello world</a>
+    </Link>
   </div>
 )
 
@@ -99,7 +107,9 @@ export default () => (
 
 API: `<Link route="name" params={params}>...</Link>`
 
-- `route` - Name of a route
+Or: `<Link route="/path/to/match">...</Link>`
+
+- `route` - Name of a route or URL to match
 - `params` - Optional parameters for the route URL
 
 It generates the URL and passes `href` and `as` props to `next/link`. Other props like `prefetch` will work as well.
@@ -116,6 +126,8 @@ import {Router} from '../routes'
 export default class extends React.Component {
   handleClick () {
     Router.pushRoute('about', {foo: 'bar'})
+    // or
+    Router.pushRoute('/about-us/bar')
   }
   render () {
     return (
@@ -131,15 +143,17 @@ export default class extends React.Component {
 ```
 API:
 
-`Router.pushRoute(name, params, options)`
+`Router.pushRoute(route, params, options)`
 
-`Router.replaceRoute(name, params, options)`
+`Router.replaceRoute(route, params, options)`
 
-- `name` - Name of a route
+`Router.prefetchRoute(route, params)`
+
+- `route` - Name of a route or URL to match
 - `params` - Optional parameters for the route URL
-- `options` - Optional options
+- `options`
 
-It generates the URL and passes `href` and `as` parameters to `next/router`.
+It generates the URL and passes `url` and `as` parameters to `next/router`.
 
 ---
 
