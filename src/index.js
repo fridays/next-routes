@@ -34,7 +34,7 @@ class Routes {
       const params = route.match(pathname)
       if (!params) return result
       return Object.assign(result, {route, params})
-    }, {pathname, query, parsedUrl})
+    }, {query, parsedUrl})
   }
 
   getRequestHandler (app, customHandler) {
@@ -87,7 +87,7 @@ class Routes {
     const fns = ['push', 'replace', 'prefetch']
 
     return fns.reduce((Router, fn) => Object.assign(Router, {
-      [`${fn}Route`]: (routeProp, params = {}, options) => {
+      [`${fn}Route`]: (routeProp, params, options) => {
         const route = this.findByName(routeProp)
 
         if (route) {
@@ -163,7 +163,7 @@ class Route {
   }
 }
 
-const toQuerystring = (obj = {}) => Object.keys(obj).map(key => {
+const toQuerystring = obj => Object.keys(obj).map(key => {
   let value = obj[key]
   if (Array.isArray(value)) {
     value = value.join('/')
