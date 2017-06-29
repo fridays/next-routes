@@ -33,7 +33,7 @@ class Routes {
       if (result.route) return result
       const params = route.match(pathname)
       if (!params) return result
-      return Object.assign(result, {route, params})
+      return {...result, route, params, query: {...query, ...params}}
     }, {query, parsedUrl})
   }
 
@@ -41,11 +41,9 @@ class Routes {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
-      const {route, params, query, parsedUrl} = this.match(req.url)
+      const {route, query, parsedUrl} = this.match(req.url)
 
       if (route) {
-        Object.assign(query, params)
-
         if (customHandler) {
           customHandler({req, res, route, query})
         } else {
@@ -67,10 +65,10 @@ class Routes {
         if (route) {
           Object.assign(newProps, route.getLinkProps(params))
         } else {
-          const {route, params, query} = this.match(routeProp)
+          const {route, query} = this.match(routeProp)
 
           if (route) {
-            const href = route.getHref({...query, ...params})
+            const href = route.getHref(query)
             Object.assign(newProps, {href, as: routeProp})
           } else {
             Object.assign(newProps, {href: routeProp})
@@ -95,8 +93,7 @@ class Routes {
           return Router[fn](href, as, options)
         } else {
           options = options || params
-          const {route, params: matchParams, query} = this.match(routeProp)
-          Object.assign(query, matchParams)
+          const {route, query} = this.match(routeProp)
           const url = route ? route.getHref(query) : routeProp
           return Router[fn](url, routeProp, options)
         }
