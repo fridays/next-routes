@@ -31,7 +31,7 @@
     "path-to-regexp": "^1.7.0"
   },
   "peerDependencies": {
-    "next": "^2.0.0 || ^3.0.0-beta1",
+    "next": ">=2.0.0",
     "react": "^15.4.2"
   },
   "devDependencies": {
