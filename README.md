@@ -156,6 +156,19 @@ API:
 It generates the URL and passes `url`, `as` and `options` parameters to `next/router`.
 
 ---
+
+You can optionally provide custom `Link` and `Router` objects, for example:
+
+```javascript
+// routes.js
+const nextRoutes = require('next-routes')
+const Link = require('./my/link')
+const Router = require('./my/router')
+const routes = module.exports = nextRoutes({Link, Router})
+```
+
+---
+
 ##### Related links
 
 - [zeit/next.js](https://github.com/zeit/next.js) - Minimalistic framework for server-rendered React applications
