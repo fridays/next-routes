@@ -40,6 +40,8 @@
     "babel-preset-env": "^1.5.2",
     "next": "^2.4.4",
     "pre-commit": "^1.2.2",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "standard": "^10.0.2"
   }
 }
