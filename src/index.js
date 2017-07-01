@@ -153,7 +153,7 @@ class Route {
     return `${as}?${toQuerystring(qsParams)}`
   }
 
-  getLinkProps (params = {}) {
+  getLinkProps (params) {
     const as = this.getAs(params)
     const href = this.getHref(params)
     return {as, href}
