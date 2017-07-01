@@ -3,30 +3,22 @@
   "version": "1.0.32",
   "description": "Universal named routes for next.js",
   "repository": "fridays/next-routes",
-  "main": "dist/index.js",
+  "main": "dist",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "babel src --out-dir dist",
-    "prepublish": "npm run build",
-    "lint": "standard 'src/*'",
-    "test": "npm run lint"
+    "build": "del dist && babel src --out-dir dist",
+    "lint": "standard 'src/*' 'test/*'",
+    "pretest": "npm run lint",
+    "test": "jest \\.test.js --coverage",
+    "watch": "nodemon -w src -x 'npm run build && npm run test -- --watch'",
+    "prepare": "npm run build && npm run test",
+    "preversion": "npm run prepare"
   },
   "standard": {
     "parser": "babel-eslint"
   },
-  "keywords": [
-    "next",
-    "next.js",
-    "react",
-    "route",
-    "router",
-    "routes",
-    "routing"
-  ],
-  "author": "fridays",
-  "license": "MIT",
   "dependencies": {
     "path-to-regexp": "^1.7.0"
   },
@@ -38,10 +30,24 @@
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-preset-env": "^1.5.2",
+    "del-cli": "^1.1.0",
+    "jest": "^20.0.4",
     "next": "^2.4.4",
-    "pre-commit": "^1.2.2",
+    "nodemon": "^1.11.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-test-renderer": "^15.6.1",
     "standard": "^10.0.2"
-  }
+  },
+  "author": "fridays",
+  "license": "MIT",
+  "keywords": [
+    "next",
+    "next.js",
+    "react",
+    "route",
+    "router",
+    "routes",
+    "routing"
+  ]
 }
