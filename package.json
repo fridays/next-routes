@@ -10,11 +10,10 @@
   "scripts": {
     "build": "del dist && babel src --out-dir dist",
     "lint": "standard 'src/*' 'test/*'",
-    "pretest": "npm run lint",
+    "pretest": "npm run lint && npm run build",
     "test": "jest \\.test.js --coverage",
-    "watch": "nodemon -w src -x 'npm run build && npm run test -- --watch'",
-    "prepare": "npm run build && npm run test",
-    "preversion": "npm run prepare"
+    "watch": "nodemon -w src -x 'npm run test -- --watch'",
+    "prepare": "npm run test"
   },
   "standard": {
     "parser": "babel-eslint"
