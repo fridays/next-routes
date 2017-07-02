@@ -1,8 +1,8 @@
-# Named Routes for Next.js
+# Dynamic Routes for Next.js
 
 [![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.0.33&x2=0)](https://www.npmjs.com/package/next-routes) [![Coverage Status](https://coveralls.io/repos/github/fridays/next-routes/badge.svg)](https://coveralls.io/github/fridays/next-routes) [![Build Status](https://travis-ci.org/fridays/next-routes.svg?branch=master)](https://travis-ci.org/fridays/next-routes)
 
-Easy to use universal named routes for [Next.js](https://github.com/zeit/next.js)
+Easy to use universal dynamic routes for [Next.js](https://github.com/zeit/next.js)
 
 - Express-style route and parameters matching
 - Request handler middleware for express & co
@@ -78,13 +78,12 @@ app.prepare().then(() => {
 Optionally you can pass a custom handler, for example:
 
 ```javascript
-const customHandler = ({req, res, route, query}) => {
+const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
   app.render(req, res, route.page, query)
-}
-const handler = routes.getRequestHandler(app, customHandler)
+})
 ```
 
-Make sure to use the server in your `package.json` scripts:
+Make sure to use `server.js` in your `package.json` scripts:
 
 ```json
 "scripts": {
@@ -110,7 +109,7 @@ export default () => (
     <Link route='blog' params={{slug: 'hello-world'}}>
       <a>Hello world</a>
     </Link>
-    or:
+    or
     <Link route='/blog/hello-world'>
       <a>Hello world</a>
     </Link>
