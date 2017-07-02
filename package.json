@@ -1,7 +1,7 @@
 {
   "name": "next-routes",
   "version": "1.0.33",
-  "description": "Universal named routes for next.js",
+  "description": "Easy to use universal dynamic routes for Next.js",
   "repository": "fridays/next-routes",
   "main": "dist",
   "files": [
