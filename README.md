@@ -1,8 +1,8 @@
-# Named routes for next.js
+# Named Routes for Next.js
 
 [![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.0.33&x2=0)](https://www.npmjs.com/package/next-routes) [![Coverage Status](https://coveralls.io/repos/github/fridays/next-routes/badge.svg)](https://coveralls.io/github/fridays/next-routes) [![Build Status](https://travis-ci.org/fridays/next-routes.svg?branch=master)](https://travis-ci.org/fridays/next-routes)
 
-Easy to use universal named routes for [next.js](https://github.com/zeit/next.js)
+Easy to use universal named routes for [Next.js](https://github.com/zeit/next.js)
 
 - Express-style route and parameters matching
 - Request handler middleware for express & co
@@ -13,30 +13,31 @@ Easy to use universal named routes for [next.js](https://github.com/zeit/next.js
 Install:
 
 ```bash
-npm install next-routes
+npm install next-routes --save
 ```
 
-Create `routes.js` inside your project root:
+Create `routes.js` inside your project:
 
 ```javascript
-// routes.js
-const nextRoutes = require('next-routes')
-const routes = module.exports = nextRoutes()
+const routes = module.exports = require('next-routes')()
 
-// Named routes
-routes.add('blog', '/blog/:slug')
-routes.add('about', '/about-us/:foo(bar|baz)', 'index')
-
-// Unnamed routes
-routes.add('/some/:thing', 'page')
+routes
+.add('blog', '/blog/:slug')
+.add('user', '/user/:id', 'profile')
+.add('complex', '/:lang(en|es)/:more+')
+.add('/noname/:thing', 'page')
 ```
 This file is used both on the server and the client.
 
-API: `routes.add(name, pattern, page = name)`
+API:
 
-- `name` - Optional: The route name
-- `pattern` - Express-style route pattern (uses [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
-- `page` - Page inside `./pages` to be rendered. Optional for named routes (defaults to `name`), mandatory for unnamed routes.
+- `routes.add(name, pattern = /name, page = name)`
+- `routes.add(pattern, page)`
+
+
+- `name` - Route name
+- `pattern` - Route pattern (like express, see [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
+- `page` - Page inside `./pages` to be rendered
 
 The page component receives the matched URL parameters merged into `query`
 
@@ -51,7 +52,7 @@ export default class Blog extends React.Component {
 }
 ```
 
-### On the server
+## On the server
 
 ```javascript
 // server.js
@@ -60,31 +61,43 @@ const routes = require('./routes')
 const app = next({dev: process.env.NODE_ENV !== 'production'})
 const handler = routes.getRequestHandler(app)
 
-// With express.js
+// With express
 const express = require('express')
 app.prepare().then(() => {
   express().use(handler).listen(3000)
 })
 
-// Without express.js
+// Without express
 const {createServer} = require('http')
 app.prepare().then(() => {
   createServer(handler).listen(3000)
 })
-
 ```
+
 Optionally you can pass a custom handler, for example:
+
 ```javascript
-const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
+const customHandler = ({req, res, route, query}) => {
   app.render(req, res, route.page, query)
-})
+}
+const handler = routes.getRequestHandler(app, customHandler)
 ```
 
-### On the client
+Make sure to use the server in your `package.json` scripts:
 
-Thin wrappers around `Link` and `Router` add support for generated URLs based on route definition. Just import them from your `routes` file:
+```json
+"scripts": {
+  "dev": "node server.js",
+  "build": "next build",
+  "start": "NODE_ENV=production node server.js"
+}
+```
 
-#### `Link` example
+## On the client
+
+Import `Link` and `Router` from your `routes.js` file to generate URLs based on route definition:
+
+### `Link` example
 
 ```jsx
 // pages/index.js
@@ -92,7 +105,7 @@ import {Link} from '../routes'
 
 export default () => (
   <div>
-    <div>Welcome to next.js!</div>
+    <div>Welcome to Next.js!</div>
     <Link route='blog' params={{slug: 'hello-world'}}>
       <a>Hello world</a>
     </Link>
@@ -102,74 +115,74 @@ export default () => (
     </Link>
   </div>
 )
-
 ```
 
-API: `<Link route='name' params={params}>...</Link>`
+API:
 
-Or: `<Link route='/path/to/match'>...</Link>`
+- `<Link route='name'>...</Link>`
+- `<Link route='name' params={params}> ... </Link>`
+- `<Link route='/path/to/match'> ... </Link>`
 
-- `route` - Name of a route or URL to match
-- `params` - Optional parameters for the route URL
 
-It generates the URL and passes `href` and `as` props to `next/link`. Other props like `prefetch` will work as well.
+- `route` - Route name or URL to match
+- `params` - Optional parameters for named routes
 
----
+It generates the URLs for `href` and `as` and renders `next/link`. Other props like `prefetch` will work as well.
 
-#### `Router` example
+### `Router` example
 
 ```jsx
 // pages/blog.js
 import React from 'react'
 import {Router} from '../routes'
 
-export default class extends React.Component {
+export default class Blog extends React.Component {
   handleClick () {
-    Router.pushRoute('about', {foo: 'bar'})
-    // or
-    Router.pushRoute('/about-us/bar')
+    // With route name and params
+    Router.pushRoute('blog', {slug: 'hello-world'})
+    // With route URL
+    Router.pushRoute('/blog/hello-world')
   }
   render () {
     return (
       <div>
         <div>{this.props.url.query.slug}</div>
-        <button onClick={this.handleClick}>
-          Home
-        </button>
+        <button onClick={this.handleClick}>Home</button>
       </div>
     )
   }
 }
 ```
+
 API:
 
-`Router.pushRoute(route, params, options)`
+- `Router.pushRoute(route)`
+- `Router.pushRoute(route, params)`
+- `Router.pushRoute(route, params, options)`
 
-`Router.replaceRoute(route, params, options)`
 
-`Router.prefetchRoute(route, params)`
+- `route` - Route name or URL to match
+- `params` - Optional parameters for named routes
+- `options` - Passed to Next.js
 
-- `route` - Name of a route or URL to match
-- `params` - Optional parameters for the route URL
-- `options`
+The same works with `.replaceRoute()` and `.prefetchRoute()`
 
-It generates the URL and passes `url`, `as` and `options` parameters to `next/router`.
+It generates the URLs and calls `next/router`
 
 ---
 
-You can optionally provide custom `Link` and `Router` objects, for example:
+Optionally you can provide custom `Link` and `Router` objects, for example:
 
 ```javascript
-// routes.js
-const nextRoutes = require('next-routes')
-const Link = require('./my/link')
-const Router = require('./my/router')
-const routes = module.exports = nextRoutes({Link, Router})
+const routes = module.exports = require('next-routes')({
+  Link: require('./my/link')
+  Router: require('./my/router')
+})
 ```
 
 ---
 
 ##### Related links
 
-- [zeit/next.js](https://github.com/zeit/next.js) - Minimalistic framework for server-rendered React applications
+- [zeit/next.js](https://github.com/zeit/next.js) - Framework for server-rendered React applications
 - [path-to-regexp](https://github.com/pillarjs/path-to-regexp) - Express-style path to regexp
