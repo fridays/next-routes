@@ -34,6 +34,7 @@ API:
 - `routes.add(name, pattern = /name, page = name)`
 - `routes.add(pattern, page)`
 
+Arguments:
 
 - `name` - Route name
 - `pattern` - Route pattern (like express, see [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
@@ -123,6 +124,7 @@ API:
 - `<Link route='name' params={params}> ... </Link>`
 - `<Link route='/path/to/match'> ... </Link>`
 
+Props:
 
 - `route` - Route name or URL to match
 - `params` - Optional parameters for named routes
@@ -160,6 +162,7 @@ API:
 - `Router.pushRoute(route, params)`
 - `Router.pushRoute(route, params, options)`
 
+Arguments:
 
 - `route` - Route name or URL to match
 - `params` - Optional parameters for named routes
