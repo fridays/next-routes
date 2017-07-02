@@ -12,6 +12,7 @@
     "lint": "standard 'src/*' 'test/*'",
     "pretest": "npm run lint && npm run build",
     "test": "jest \\.test.js --coverage",
+    "coveralls": "npm run test && cat coverage/lcov.info | coveralls",
     "watch": "nodemon -w src -x 'npm run test -- --watch'",
     "prepare": "npm run test"
   },
@@ -30,6 +31,7 @@
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
     "babel-preset-env": "^1.5.2",
+    "coveralls": "^2.13.1",
     "del-cli": "^1.1.0",
     "jest": "^20.0.4",
     "next": "^2.4.4",
