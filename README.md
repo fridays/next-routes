@@ -33,6 +33,7 @@ API:
 
 - `routes.add(name, pattern = /name, page = name)`
 - `routes.add(pattern, page)`
+- `routes.add(object)`
 
 Arguments:
 
