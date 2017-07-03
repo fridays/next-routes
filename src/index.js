@@ -37,6 +37,19 @@ class Routes {
     }, {query, parsedUrl})
   }
 
+  findAndGetUrls (nameOrUrl, params) {
+    const route = this.findByName(nameOrUrl)
+
+    if (route) {
+      return {route, urls: route.getUrls(params), byName: true}
+    } else {
+      const {route, query} = this.match(nameOrUrl)
+      const href = route ? route.getHref(query) : nameOrUrl
+      const urls = {href, as: nameOrUrl}
+      return {route, urls}
+    }
+  }
+
   getRequestHandler (app, customHandler) {
     const nextHandler = app.getRequestHandler()
 
@@ -57,23 +70,10 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route: routeProp, params, ...newProps} = props
+      const {route, params, ...newProps} = props
 
-      if (routeProp) {
-        const route = this.findByName(routeProp)
-
-        if (route) {
-          Object.assign(newProps, route.getLinkProps(params))
-        } else {
-          const {route, query} = this.match(routeProp)
-
-          if (route) {
-            const href = route.getHref(query)
-            Object.assign(newProps, {href, as: routeProp})
-          } else {
-            Object.assign(newProps, {href: routeProp})
-          }
-        }
+      if (route) {
+        Object.assign(newProps, this.findAndGetUrls(route, params).urls)
       }
 
       return <Link {...newProps} />
@@ -82,23 +82,15 @@ class Routes {
   }
 
   getRouter (Router) {
-    const fns = ['push', 'replace', 'prefetch']
+    const wrap = method => (route, params, options) => {
+      const {byName, urls: {as, href}} = this.findAndGetUrls(route, params)
+      return Router[method](href, as, byName ? options : params)
+    }
 
-    return fns.reduce((Router, fn) => Object.assign(Router, {
-      [`${fn}Route`]: (routeProp, params, options) => {
-        const route = this.findByName(routeProp)
-
-        if (route) {
-          const {href, as} = route.getLinkProps(params)
-          return Router[fn](href, as, options)
-        } else {
-          options = options || params
-          const {route, query} = this.match(routeProp)
-          const url = route ? route.getHref(query) : routeProp
-          return Router[fn](url, routeProp, options)
-        }
-      }
-    }), Router)
+    Router.pushRoute = wrap('push')
+    Router.replaceRoute = wrap('replace')
+    Router.prefetchRoute = wrap('prefetch')
+    return Router
   }
 }
 
@@ -153,7 +145,7 @@ class Route {
     return `${as}?${toQuerystring(qsParams)}`
   }
 
-  getLinkProps (params) {
+  getUrls (params) {
     const as = this.getAs(params)
     const href = this.getHref(params)
     return {as, href}

@@ -48,8 +48,8 @@ describe('Routes', () => {
     const {route} = setup('a', '/a/:b/:c+')
     const params = {b: 'b', c: [1, 2], d: 'd'}
     const expected = {as: '/a/b/1/2?d=d', href: '/a?b=b&c=1%2F2&d=d'}
-    expect(route.getLinkProps(params)).toEqual(expected)
-    expect(setup('a').route.getLinkProps()).toEqual({as: '/a', href: '/a?'})
+    expect(route.getUrls(params)).toEqual(expected)
+    expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
   })
 
   test('with custom Link and Router', () => {
@@ -108,16 +108,16 @@ describe('Link', () => {
 
   test('with name and params', () => {
     const {route, testLink} = setup('a', '/a/:b')
-    testLink({route: 'a', params: {b: 'b'}}, route.getLinkProps({b: 'b'}))
+    testLink({route: 'a', params: {b: 'b'}}, route.getUrls({b: 'b'}))
   })
 
   test('with route url', () => {
     const {routes, route, testLink} = setup('/a/:b', 'a')
-    testLink({route: '/a/b'}, route.getLinkProps(routes.match('/a/b').query))
+    testLink({route: '/a/b'}, route.getUrls(routes.match('/a/b').query))
   })
 
   test('with route not found', () => {
-    setup('a').testLink({route: '/b'}, {href: '/b'})
+    setup('a').testLink({route: '/b'}, {href: '/b', as: '/b'})
   })
 
   test('without route', () => {
@@ -142,14 +142,14 @@ describe(`Router ${routerMethods.join(', ')}`, () => {
 
   test('with name and params', () => {
     const {route, testMethods} = setup('a', '/a/:b')
-    const {as, href} = route.getLinkProps({b: 'b'})
+    const {as, href} = route.getUrls({b: 'b'})
     testMethods(['a', {b: 'b'}, {}], [href, as, {}])
   })
 
   test('with route url', () => {
     const {routes, testMethods} = setup('/a', 'a')
     const {route, query} = routes.match('/a')
-    const {as, href} = route.getLinkProps(query)
+    const {as, href} = route.getUrls(query)
     testMethods(['/a', {}], [href, as, {}])
   })
 
