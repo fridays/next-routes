@@ -19,6 +19,10 @@ describe('Routes', () => {
     return {routes, route, testRoute}
   }
 
+  test('add with object', () => {
+    setup({name: 'a'}).testRoute({name: 'a', pattern: '/a', page: '/a'})
+  })
+
   test('add with name', () => {
     setup('a').testRoute({name: 'a', pattern: '/a', page: '/a'})
   })
@@ -37,6 +41,10 @@ describe('Routes', () => {
 
   test('add with only pattern throws', () => {
     expect(() => setup('/:a')).toThrow()
+  })
+
+  test('add with existing name throws', () => {
+    expect(() => nextRoutes().add('a').add('a')).toThrow()
   })
 
   test('match and merge params into query', () => {

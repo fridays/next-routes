@@ -16,8 +16,25 @@ class Routes {
     this.Router = this.getRouter(Router)
   }
 
-  add (...args) {
-    this.routes.push(new Route(...args))
+  add (name, pattern, page) {
+    let options
+    if (name instanceof Object) {
+      options = name
+      name = options.name
+    } else {
+      if (name.charAt(0) === '/') {
+        page = pattern
+        pattern = name
+        name = null
+      }
+      options = {name, pattern, page}
+    }
+
+    if (this.findByName(name)) {
+      throw new Error(`Route "${name}" already exists`)
+    }
+
+    this.routes.push(new Route(options))
     return this
   }
 
@@ -95,15 +112,9 @@ class Routes {
 }
 
 class Route {
-  constructor (name, pattern, page = name) {
-    if (name.charAt(0) === '/') {
-      page = pattern
-      pattern = name
-      name = null
-
-      if (!page) {
-        throw new Error(`Please define a page to render for route "${pattern}"`)
-      }
+  constructor ({name, pattern, page = name}) {
+    if (!name && !page) {
+      throw new Error(`Missing page to render for route "${pattern}"`)
     }
 
     this.name = name
