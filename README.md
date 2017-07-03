@@ -22,11 +22,13 @@ Create `routes.js` inside your project:
 const routes = module.exports = require('next-routes')()
 
 routes
+.add('about')
 .add('blog', '/blog/:slug')
 .add('user', '/user/:id', 'profile')
-.add('complex', '/:lang(en|es)/:more+')
-.add('/noname/:thing', 'page')
+.add('/:noname/:lang(en|es)/:wow+', 'complex')
+.add({name: 'beta', pattern: '/v3', page: 'v3'})
 ```
+
 This file is used both on the server and the client.
 
 API:
