@@ -39,7 +39,9 @@ class Routes {
   }
 
   findByName (name) {
-    return this.routes.filter(route => route.name === name)[0]
+    if (name) {
+      return this.routes.filter(route => route.name === name)[0]
+    }
   }
 
   match (url) {

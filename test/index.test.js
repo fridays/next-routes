@@ -47,6 +47,10 @@ describe('Routes', () => {
     expect(() => nextRoutes().add('a').add('a')).toThrow()
   })
 
+  test('add multiple unnamed routes', () => {
+    expect(nextRoutes().add('/a', 'a').add('/b', 'b').routes.length).toBe(2)
+  })
+
   test('match and merge params into query', () => {
     const routes = nextRoutes().add('a').add('b', '/b/:b').add('c')
     expect(routes.match('/b/b?b=x&c=c').query).toMatchObject({b: 'b', c: 'c'})
