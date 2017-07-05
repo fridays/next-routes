@@ -128,6 +128,11 @@ describe('Link', () => {
     testLink({route: '/a/b'}, route.getUrls(routes.match('/a/b').query))
   })
 
+  test('with to', () => {
+    const {routes, route, testLink} = setup('/a/:b', 'a')
+    testLink({to: '/a/b'}, route.getUrls(routes.match('/a/b').query))
+  })
+
   test('with route not found', () => {
     setup('a').testLink({route: '/b'}, {href: '/b', as: '/b'})
   })
