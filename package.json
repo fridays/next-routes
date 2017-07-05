@@ -1,6 +1,6 @@
 {
   "name": "next-routes",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "description": "Easy to use universal dynamic routes for Next.js",
   "repository": "fridays/next-routes",
   "main": "dist",
