@@ -51,6 +51,10 @@ describe('Routes', () => {
     expect(nextRoutes().add('/a', 'a').add('/b', 'b').routes.length).toBe(2)
   })
 
+  test('page with leading slash', () => {
+    setup('a', '/', '/b').testRoute({page: '/b'})
+  })
+
   test('page index becomes /', () => {
     setup('index', '/').testRoute({page: '/'})
   })
