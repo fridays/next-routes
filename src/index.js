@@ -122,7 +122,7 @@ class Route {
 
     this.name = name
     this.pattern = pattern || `/${name}`
-    this.page = page.replace(/\/index$/, '').replace(/^\/?/, '/')
+    this.page = page.replace(/(^|\/)index$/, '').replace(/^\/?/, '/')
     this.regex = pathToRegexp(this.pattern, this.keys = [])
     this.keyNames = this.keys.map(key => key.name)
     this.toPath = pathToRegexp.compile(this.pattern)
