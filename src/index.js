@@ -22,7 +22,7 @@ class Routes {
       options = name
       name = options.name
     } else {
-      if (name.charAt(0) === '/') {
+      if (name[0] === '/') {
         page = pattern
         pattern = name
         name = null
@@ -122,8 +122,7 @@ class Route {
 
     this.name = name
     this.pattern = pattern || `/${name}`
-    page = page.replace(/^\/?(.*)/, '$1')
-    this.page = page === 'index' ? '/' : `/${page}`
+    this.page = page.replace(/\/?index$/, '').replace(/^\/?/, '/')
     this.regex = pathToRegexp(this.pattern, this.keys = [])
     this.keyNames = this.keys.map(key => key.name)
     this.toPath = pathToRegexp.compile(this.pattern)
