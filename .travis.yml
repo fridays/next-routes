@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - "4"
   - "6"
-script: npm run test-ci
+script: npm run testCI

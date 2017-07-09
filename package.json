@@ -8,16 +8,23 @@
     "dist"
   ],
   "scripts": {
-    "build": "del dist && babel src --out-dir dist",
     "lint": "standard 'src/*' 'test/*'",
+    "build": "del dist/* && babel src -d dist",
+    "prepublishOnly": "npm run test",
     "pretest": "npm run lint && npm run build",
-    "test": "jest \\.test.js --coverage",
-    "test-ci": "npm run test && cat coverage/lcov.info | coveralls",
-    "watch": "nodemon -w src -x 'npm run test -- --watch'",
-    "prepare": "npm run test"
+    "test": "npm run testOnly",
+    "testOnly": "jest \\.test.js --coverage",
+    "testCI": "npm run test && cat coverage/lcov.info | coveralls",
+    "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'"
   },
   "standard": {
     "parser": "babel-eslint"
+  },
+  "jest": {
+    "roots": [
+      "test/",
+      "dist/"
+    ]
   },
   "dependencies": {
     "path-to-regexp": "^1.7.0"
@@ -31,11 +38,11 @@
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.3",
     "babel-preset-env": "^1.5.2",
+    "concurrently": "^3.5.0",
     "coveralls": "^2.13.1",
     "del-cli": "^1.1.0",
     "jest": "^20.0.4",
-    "next": "^2.4.4",
-    "nodemon": "^1.11.0",
+    "next": "^2.4.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
