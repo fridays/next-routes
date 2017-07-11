@@ -16,7 +16,7 @@ class Routes {
     this.Router = this.getRouter(Router)
   }
 
-  add (name, pattern, page) {
+  add (name, pattern, page, params) {
     let options
     if (name instanceof Object) {
       options = name
@@ -27,7 +27,7 @@ class Routes {
         pattern = name
         name = null
       }
-      options = {name, pattern, page}
+      options = {name, pattern, page, params}
     }
 
     if (this.findByName(name)) {
@@ -115,7 +115,7 @@ class Routes {
 }
 
 class Route {
-  constructor ({name, pattern, page = name}) {
+  constructor ({name, pattern, page = name, params}) {
     if (!name && !page) {
       throw new Error(`Missing page to render for route "${pattern}"`)
     }
@@ -126,6 +126,7 @@ class Route {
     this.regex = pathToRegexp(this.pattern, this.keys = [])
     this.keyNames = this.keys.map(key => key.name)
     this.toPath = pathToRegexp.compile(this.pattern)
+    this.params = params
   }
 
   match (path) {
@@ -136,9 +137,10 @@ class Route {
   }
 
   valuesToParams (values) {
+    const defaultParams = this.params instanceof Object ? this.params : {}
     return values.reduce((params, val, i) => Object.assign(params, {
       [this.keys[i].name]: val
-    }), {})
+    }), defaultParams)
   }
 
   getHref (params = {}) {
