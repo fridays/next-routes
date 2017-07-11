@@ -128,7 +128,7 @@ API:
 
 Props:
 
-- `route` - Route name or URL to match
+- `route` - Route name or URL to match (alias: `to`)
 - `params` - Optional parameters for named routes
 
 It generates the URLs for `href` and `as` and renders `next/link`. Other props like `prefetch` will work as well.
