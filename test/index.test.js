@@ -55,10 +55,6 @@ describe('Routes', () => {
     setup('a', '/', '/b').testRoute({page: '/b'})
   })
 
-  test('page index becomes /', () => {
-    setup('index', '/').testRoute({page: '/'})
-  })
-
   test('match and merge params into query', () => {
     const routes = nextRoutes().add('a').add('b', '/b/:b').add('c')
     expect(routes.match('/b/b?b=x&c=c').query).toMatchObject({b: 'b', c: 'c'})
