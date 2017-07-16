@@ -15,7 +15,8 @@
     "test": "npm run testOnly",
     "testOnly": "jest \\.test.js --coverage",
     "testCI": "npm run test && cat coverage/lcov.info | coveralls",
-    "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'"
+    "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'",
+    "release": "standard-version"
   },
   "standard": {
     "parser": "babel-eslint"
