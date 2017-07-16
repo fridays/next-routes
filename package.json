@@ -15,7 +15,8 @@
     "test": "npm run testOnly",
     "testOnly": "jest \\.test.js --coverage",
     "testCI": "npm run test && cat coverage/lcov.info | coveralls",
-    "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'"
+    "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'",
+    "release": "standard-version"
   },
   "standard": {
     "parser": "babel-eslint"
@@ -46,7 +47,8 @@
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
-    "standard": "^10.0.2"
+    "standard": "^10.0.2",
+    "standard-version": "^4.2.0"
   },
   "author": "fridays",
   "license": "MIT",
