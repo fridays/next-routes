@@ -89,11 +89,23 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route, params, to, ...newProps} = props
+      const {route, params, to, hash, ...newProps} = props
       const nameOrUrl = route || to
 
       if (nameOrUrl) {
         Object.assign(newProps, this.findAndGetUrls(nameOrUrl, params).urls)
+        if (hash) {
+          Object.assign(newProps, {
+            href: `${newProps.href}#${hash}`,
+            as: `${newProps.as}#${hash}`
+          })
+        }
+      } else if (hash && newProps.href && typeof newProps.href === 'string') {
+        if (newProps.href.indexOf('#') < 0) {
+          Object.assign(newProps, {
+            href: { pathname: newProps.href, hash: hash }
+          })
+        }
       }
 
       return <Link {...newProps} />
