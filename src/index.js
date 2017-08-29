@@ -100,12 +100,6 @@ class Routes {
             as: `${newProps.as}#${hash}`
           })
         }
-      } else if (hash && newProps.href && typeof newProps.href === 'string') {
-        if (newProps.href.indexOf('#') < 0) {
-          Object.assign(newProps, {
-            href: { pathname: newProps.href, hash: hash }
-          })
-        }
       }
 
       return <Link {...newProps} />

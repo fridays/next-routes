@@ -162,15 +162,15 @@ describe('Link', () => {
       setup('a').testLink({route: '/b', hash: 'abc'}, {href: '/b#abc', as: '/b#abc'})
     })
 
-    test('without route', () => {
-      setup('a').testLink({href: '/', hash: 'abc'}, {href: {pathname: '/', hash: 'abc'}})
+    test('with href drops hash prop (user needs to handle)', () => {
+      setup('a').testLink({href: '/', hash: 'abc'}, {href: '/'})
     })
 
-    test('without route but with existing hash', () => {
+    test('with href drops hash prop (user needs to handle)', () => {
       setup('a').testLink({href: '/#zyx', hash: 'abc'}, {href: '/#zyx'})
     })
 
-    test('without route using next\'s Link href object', () => {
+    test('with href using next\'s Link href object', () => {
       setup('a').testLink({href: {pathname: '/', hash: 'abc'}}, {href: {pathname: '/', hash: 'abc'}})
     })
   })
