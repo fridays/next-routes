@@ -41,7 +41,7 @@
     "concurrently": "^3.5.0",
     "coveralls": "^2.13.1",
     "del-cli": "^1.1.0",
-    "jest": "^20.0.4",
+    "jest": "^21.0.0",
     "next": "^2.4.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
