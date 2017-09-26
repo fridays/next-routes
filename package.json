@@ -45,7 +45,7 @@
     "next": "^2.4.7",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-test-renderer": "^15.6.1",
+    "react-test-renderer": "^16.0.0",
     "standard": "^10.0.2"
   },
   "author": "fridays",
