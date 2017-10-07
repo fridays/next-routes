@@ -21,6 +21,7 @@
     "parser": "babel-eslint"
   },
   "jest": {
+    "testEnvironment": "node",
     "roots": [
       "test/",
       "dist/"
@@ -43,6 +44,7 @@
     "del-cli": "^1.1.0",
     "jest": "^21.2.1",
     "next": "^4.0.0-beta.4",
+    "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
