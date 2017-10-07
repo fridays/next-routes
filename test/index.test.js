@@ -74,6 +74,10 @@ describe('Routes', () => {
     expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
   })
 
+  test('ensure "as" when path match is empty', () => {
+    expect(setup('a', '/:a?').route.getAs()).toEqual('/')
+  })
+
   test('with custom Link and Router', () => {
     const CustomLink = () => <div />
     const CustomRouter = {}
