@@ -30,8 +30,8 @@
     "path-to-regexp": "^1.7.0"
   },
   "peerDependencies": {
-    "next": "^2.0.0 || ^3.0.1-beta",
-    "react": "^15.4.2"
+    "next": "2 - 3 || ^4.0.0-beta",
+    "react": "^15.4.2 || ^16"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -42,10 +42,10 @@
     "coveralls": "^3.0.0",
     "del-cli": "^1.1.0",
     "jest": "^21.2.1",
-    "next": "^3.2.2",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
-    "react-test-renderer": "^15.6.2",
+    "next": "^4.0.0-beta.4",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
     "standard": "^10.0.3"
   },
   "author": "fridays",
