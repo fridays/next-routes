@@ -171,6 +171,9 @@ class Route {
 
 const toQuerystring = obj => Object.keys(obj).map(key => {
   let value = obj[key]
+  if (value === null) {
+    value = ''
+  }
   if (Array.isArray(value)) {
     value = value.join('/')
   }

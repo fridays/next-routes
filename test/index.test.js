@@ -74,6 +74,14 @@ describe('Routes', () => {
     expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
   })
 
+  test('do not pass "null" for params that have null values', () => {
+    const {route} = setup('a', '/a/:b/:c?')
+    const params = {b: 'b', c: null}
+    const expected = {as: '/a/b', href: '/a?b=b&c='}
+    expect(route.getUrls(params)).toEqual(expected)
+    expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
+  })
+
   test('ensure "as" when path match is empty', () => {
     expect(setup('a', '/:a?').route.getAs()).toEqual('/')
   })
