@@ -76,8 +76,8 @@ describe('Routes', () => {
 
   test('do not pass "null" for params that have null values', () => {
     const {route} = setup('a', '/a/:b/:c?')
-    const params = {b: 'b', c: null}
-    const expected = {as: '/a/b', href: '/a?b=b&c='}
+    const params = {b: 'b', c: null, d: undefined}
+    const expected = {as: '/a/b?', href: '/a?b=b'}
     expect(route.getUrls(params)).toEqual(expected)
     expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
   })
