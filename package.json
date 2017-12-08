@@ -28,7 +28,7 @@
     ]
   },
   "dependencies": {
-    "path-to-regexp": "^2.0.0"
+    "path-to-regexp": "^2.1.0"
   },
   "peerDependencies": {
     "next": "2 - 3 || ^4.0.0-beta",
