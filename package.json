@@ -37,7 +37,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.0.1",
-    "babel-jest": "^21.2.0",
+    "babel-jest": "^22.0.0",
     "babel-preset-env": "^1.5.2",
     "concurrently": "^3.5.0",
     "coveralls": "^3.0.0",
