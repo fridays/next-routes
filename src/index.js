@@ -92,11 +92,12 @@ class Routes {
       const {route, params, to, ...newProps} = props
       const nameOrUrl = route || to
 
-      if (nameOrUrl) {
-        Object.assign(newProps, this.findAndGetUrls(nameOrUrl, params).urls)
-      }
-
-      return <Link {...newProps} />
+      return (
+        <Link
+          {...newProps}
+          {...(nameOrUrl ? this.findAndGetUrls(nameOrUrl, params).urls : {})}
+        />
+      )
     }
     return LinkRoutes
   }
@@ -138,9 +139,7 @@ class Route {
   valuesToParams (values) {
     return values.reduce((params, val, i) => {
       if (val === undefined) return params
-      return Object.assign(params, {
-        [this.keys[i].name]: val
-      })
+      return {...params, [this.keys[i].name]: val}
     }, {})
   }
 
@@ -155,7 +154,8 @@ class Route {
 
     if (!qsKeys.length) return as
 
-    const qsParams = qsKeys.reduce((qs, key) => Object.assign(qs, {
+    const qsParams = qsKeys.reduce((qs, key) => ({
+      ...qs,
       [key]: params[key]
     }), {})
 
