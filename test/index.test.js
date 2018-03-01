@@ -74,6 +74,14 @@ describe('Routes', () => {
     expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
   })
 
+  test('generate urls with params that need escaping', () => {
+    const {route} = setup('a', '/a/:b')
+    const params = {b: 'b b'}
+    const expected = {as: '/a/b%20b', href: '/a?b=b%20b'}
+    expect(route.getUrls(params)).toEqual(expected)
+    expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
+  })
+
   test('do not pass "null" for params that have null values', () => {
     const {route} = setup('a', '/a/:b/:c?')
     const params = {b: 'b', c: null, d: undefined}
