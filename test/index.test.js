@@ -23,6 +23,11 @@ describe('Routes', () => {
     setup({name: 'a'}).testRoute({name: 'a', pattern: '/a', page: '/a'})
   })
 
+  test('add with metadata object', () => {
+    setup({name: 'x', metadata: { cache: true }})
+    .testRoute({name: 'x', pattern: '/x', page: '/x', metadata: { cache: true }})
+  })
+
   test('add with name', () => {
     setup('a').testRoute({name: 'a', pattern: '/a', page: '/a'})
   })
