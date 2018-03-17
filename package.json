@@ -4,16 +4,19 @@
   "description": "Easy to use universal dynamic routes for Next.js",
   "repository": "fridays/next-routes",
   "main": "dist",
+  "typings": "typings/next-routes.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "typings"
   ],
   "scripts": {
     "lint": "standard 'src/*' 'test/*'",
     "build": "del dist/* && babel src -d dist",
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint && npm run build",
-    "test": "npm run testOnly",
+    "test": "npm run testOnly && npm run testTypings",
     "testOnly": "jest \\.test.js --coverage",
+    "testTypings": "tsc --project ./typings/tests",
     "testCI": "npm run test && cat coverage/lcov.info | coveralls",
     "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'"
   },
@@ -35,6 +38,8 @@
     "react": "^15.4.2 || ^16"
   },
   "devDependencies": {
+    "@types/next": "^2.4.8",
+    "@types/node": "^9.4.7",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.1.0",
@@ -48,7 +53,8 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-test-renderer": "^16.0.0",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "typescript": "^2.7.2"
   },
   "author": "fridays",
   "license": "MIT",
