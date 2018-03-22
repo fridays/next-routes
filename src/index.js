@@ -52,9 +52,6 @@ class Routes {
       if (result.route) return result
       const params = route.match(pathname)
       if (!params) return result
-      Object.keys(params).forEach((key) => {
-        params[key] = decodeURIComponent(params[key])
-      })
       return {...result, route, params, query: {...query, ...params}}
     }, {query, parsedUrl})
   }
@@ -142,7 +139,7 @@ class Route {
     return values.reduce((params, val, i) => {
       if (val === undefined) return params
       return Object.assign(params, {
-        [this.keys[i].name]: val
+        [this.keys[i].name]: decodeURIComponent(val)
       })
     }, {})
   }
