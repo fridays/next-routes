@@ -52,6 +52,9 @@ class Routes {
       if (result.route) return result
       const params = route.match(pathname)
       if (!params) return result
+      Object.keys(params).forEach((key) => {
+        params[key] = decodeURIComponent(params[key])
+      })
       return {...result, route, params, query: {...query, ...params}}
     }, {query, parsedUrl})
   }

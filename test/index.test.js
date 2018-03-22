@@ -66,10 +66,25 @@ describe('Routes', () => {
     expect(query).not.toHaveProperty('a')
   })
 
+  test('match and merge escaped params', () => {
+    const routes = nextRoutes().add('a', '/a/:b')
+    const {query} = routes.match('/a/b%20%2F%20b')
+    expect(query).toMatchObject({b: 'b / b'})
+    expect(query).not.toHaveProperty('a')
+  })
+
   test('generate urls from params', () => {
     const {route} = setup('a', '/a/:b/:c+')
     const params = {b: 'b', c: [1, 2], d: 'd'}
     const expected = {as: '/a/b/1/2?d=d', href: '/a?b=b&c=1%2F2&d=d'}
+    expect(route.getUrls(params)).toEqual(expected)
+    expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
+  })
+
+  test('generate urls with params that need escaping', () => {
+    const {route} = setup('a', '/a/:b')
+    const params = {b: 'b b'}
+    const expected = {as: '/a/b%20b', href: '/a?b=b%20b'}
     expect(route.getUrls(params)).toEqual(expected)
     expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
   })
