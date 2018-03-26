@@ -1,5 +1,5 @@
-import http from "http";
-import next from "next";
+import * as http from "http";
+import * as next from "next";
 import Routes from "../..";
 
 const routes = new Routes();
