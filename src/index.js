@@ -139,7 +139,7 @@ class Route {
   valuesToParams (values) {
     return values.reduce((params, val, i) => {
       if (val === undefined) return params
-      return {...params, [this.keys[i].name]: val}
+      return {...params, [this.keys[i].name]: decodeURIComponent(val)}
     }, {})
   }
 
