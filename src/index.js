@@ -4,9 +4,9 @@ import {parse} from 'url'
 import NextLink from 'next/link'
 import NextRouter from 'next/router'
 
-module.exports = opts => new Routes(opts)
+export default opts => new Routes(opts)
 
-class Routes {
+export class Routes {
   constructor ({
     Link = NextLink,
     Router = NextRouter
