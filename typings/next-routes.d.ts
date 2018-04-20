@@ -53,4 +53,5 @@ export class Routes implements Registry {
   Router: Router;
 }
 
-export default Routes
+declare const _default: (opt: any) => Routes
+export default _default
