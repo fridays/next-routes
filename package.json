@@ -34,21 +34,22 @@
     "path-to-regexp": "^2.1.0"
   },
   "peerDependencies": {
-    "next": "2 - 5",
+    "next": ">=2",
     "react": "^15.4.2 || ^16"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0-beta.46",
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.46",
     "@types/next": "^2.4.8",
     "@types/node": "^9.4.7",
-    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.1.0",
-    "babel-preset-env": "^1.5.2",
+    "babel-jest": "^22.4.3",
     "concurrently": "^3.5.0",
     "coveralls": "^3.0.0",
     "del-cli": "^1.1.0",
-    "jest": "^22.1.4",
-    "next": "^5.0.0",
+    "jest": "^22.4.3",
+    "next": "^6.0.0",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
