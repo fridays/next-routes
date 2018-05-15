@@ -38,11 +38,12 @@
     "react": "^15.4.2 || ^16"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.46",
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/preset-env": "^7.0.0-beta.46",
+    "@babel/cli": "^7.0.0-beta.47",
+    "@babel/core": "^7.0.0-beta.47",
+    "@babel/preset-env": "^7.0.0-beta.47",
     "@types/next": "^2.4.8",
     "@types/node": "^9.4.7",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.4.3",
     "concurrently": "^3.5.0",
