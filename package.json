@@ -43,6 +43,7 @@
     "@babel/preset-env": "^7.0.0-beta.47",
     "@types/next": "^2.4.8",
     "@types/node": "^10.1.2",
+    "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.4.3",
     "concurrently": "^3.5.0",
