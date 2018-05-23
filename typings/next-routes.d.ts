@@ -53,5 +53,9 @@ export class Routes implements Registry {
   Router: Router;
 }
 
-declare const _default: (opt: any) => Routes
-export default _default
+export interface RoutesOptions {
+  Link: ComponentType<LinkProps>;
+  Router: Router;
+}
+
+export default function makeRoutesRegistry (options?: RoutesOptions): Routes;
