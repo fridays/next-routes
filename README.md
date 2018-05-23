@@ -19,7 +19,7 @@ npm install next-routes --save
 Create `routes.js` inside your project:
 
 ```javascript
-const routes = require('next-routes')
+const routes = require('next-routes').default
 
                                                     // Name   Page      Pattern
 module.exports = routes()                           // ----   ----      -----
