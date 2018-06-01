@@ -56,6 +56,10 @@ export default class Blog extends React.Component {
 }
 ```
 
+The recommended approach is to pass down `query` within `getInitialProps`
+
+`this.props.url` is deprecated in Next v6 and will break if a custom `pages/_app.js` is defined.
+
 ## On the server
 
 ```javascript
