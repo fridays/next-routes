@@ -41,7 +41,7 @@
     "@babel/cli": "^7.0.0-beta.47",
     "@babel/core": "^7.0.0-beta.47",
     "@babel/preset-env": "^7.0.0-beta.47",
-    "@types/next": "^2.4.8",
+    "@types/next": "^6.0.0",
     "@types/node": "^10.1.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.1",
