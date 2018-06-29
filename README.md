@@ -56,6 +56,35 @@ export default class Blog extends React.Component {
 }
 ```
 
+## Router Events
+
+The following router events are supported:
+
+- onRouteChangeStart
+- onRouteChangeComplete
+- onRouteChangeError
+- onBeforeHistoryChange
+
+```javascript
+const routes = module.exports = require('next-routes')()
+
+routes
+.add('about')
+
+routes.onRouteChangeStart((url) => {
+  console.log('App is changing to: ', url);
+})
+```
+
+API:
+
+- `routes.onRouteChangeStart(url)`
+- `routes.onRouteChangeComplete(url)`
+- `routes.onRouteChangeError(err, url)`
+- `routes.onBeforeHistoryChange(url)`
+
+---
+
 ## On the server
 
 ```javascript

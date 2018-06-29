@@ -87,6 +87,19 @@ class Routes {
     }
   }
 
+  onRouteChangeStart (fn) {
+    this.Router.onRouteChangeStart = fn;
+  }
+  onRouteChangeComplete (fn) {
+    this.Router.onRouteChangeComplete = fn;
+  }
+  onRouteChangeError (fn) {
+    this.Router.onRouteChangeError = fn;
+  }
+  onBeforeHistoryChange (fn) {
+    this.Router.onBeforeHistoryChange = fn;
+  }
+
   getLink (Link) {
     const LinkRoutes = props => {
       const {route, params, to, ...newProps} = props
