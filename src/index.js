@@ -115,12 +115,13 @@ class Routes {
 }
 
 class Route {
-  constructor ({name, pattern, page = name}) {
+  constructor ({name, pattern, page = name, metadata = {}}) {
     if (!name && !page) {
       throw new Error(`Missing page to render for route "${pattern}"`)
     }
 
     this.name = name
+    this.metadata = metadata
     this.pattern = pattern || `/${name}`
     this.page = page.replace(/(^|\/)index$/, '').replace(/^\/?/, '/')
     this.regex = pathToRegexp(this.pattern, this.keys = [])
