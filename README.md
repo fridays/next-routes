@@ -19,22 +19,22 @@ npm install next-routes --save
 Create `routes.js` inside your project:
 
 ```javascript
-const routes = module.exports = require('next-routes')()
+const routes = require('next-routes')
 
-routes
-.add('about')
-.add('blog', '/blog/:slug')
-.add('user', '/user/:id', 'profile')
-.add('/:noname/:lang(en|es)/:wow+', 'complex')
-.add({name: 'beta', pattern: '/v3', page: 'v3'})
+                                                    // Name   Page      Pattern
+module.exports = routes()                           // ----   ----      -----
+.add('about')                                       // about  about     /about
+.add('blog', '/blog/:slug')                         // blog   blog      /blog/:slug
+.add('user', '/user/:id', 'profile')                // user   profile   /user/:id
+.add('/:noname/:lang(en|es)/:wow+', 'complex')      // (none) complex   /:noname/:lang(en|es)/:wow+
+.add({name: 'beta', pattern: '/v3', page: 'v3'})    // beta   v3        /v3
 ```
 
 This file is used both on the server and the client.
 
 API:
 
-- `routes.add(name, pattern = /name, page = name)`
-- `routes.add(pattern, page)`
+- `routes.add([name], pattern = /name, page = name)`
 - `routes.add(object)`
 
 Arguments:
