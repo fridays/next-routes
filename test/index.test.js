@@ -177,6 +177,32 @@ describe('Link', () => {
   test('without route', () => {
     setup('a').testLink({href: '/'}, {href: '/'})
   })
+
+  describe('anchor hashes', () => {
+    test('with route url', () => {
+      setup('/a/:b', 'a').testLink({route: '/a/b', hash: 'abc'}, {href: '/a?b=b#abc', as: '/a/b#abc'})
+    })
+
+    test('with to', () => {
+      setup('/a/:b', 'a').testLink({to: '/a/b', hash: 'abc'}, {href: '/a?b=b#abc', as: '/a/b#abc'})
+    })
+
+    test('with route not found', () => {
+      setup('a').testLink({route: '/b', hash: 'abc'}, {href: '/b#abc', as: '/b#abc'})
+    })
+
+    test('with href drops hash prop (user needs to handle)', () => {
+      setup('a').testLink({href: '/', hash: 'abc'}, {href: '/'})
+    })
+
+    test('with href drops hash prop (user needs to handle)', () => {
+      setup('a').testLink({href: '/#zyx', hash: 'abc'}, {href: '/#zyx'})
+    })
+
+    test('with href using next\'s Link href object', () => {
+      setup('a').testLink({href: {pathname: '/', hash: 'abc'}}, {href: {pathname: '/', hash: 'abc'}})
+    })
+  })
 })
 
 const routerMethods = ['push', 'replace', 'prefetch']

@@ -89,11 +89,17 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route, params, to, ...newProps} = props
+      const {route, params, to, hash, ...newProps} = props
       const nameOrUrl = route || to
 
       if (nameOrUrl) {
         Object.assign(newProps, this.findAndGetUrls(nameOrUrl, params).urls)
+        if (hash) {
+          Object.assign(newProps, {
+            href: `${newProps.href}#${hash}`,
+            as: `${newProps.as}#${hash}`
+          })
+        }
       }
 
       return <Link {...newProps} />
