@@ -9,26 +9,30 @@ module.exports = opts => new Routes(opts)
 class Routes {
   constructor ({
     Link = NextLink,
-    Router = NextRouter
+    Router = NextRouter,
+    pathToRegexpOpts = {}
   } = {}) {
     this.routes = []
     this.Link = this.getLink(Link)
     this.Router = this.getRouter(Router)
+    this.pathToRegexpOpts = pathToRegexpOpts
   }
 
-  add (name, pattern, page) {
-    let options
+  add (name, pattern, page, opts = {}) {
     if (name instanceof Object) {
-      options = name
-      name = options.name
-    } else {
-      if (name[0] === '/') {
-        page = pattern
-        pattern = name
-        name = null
-      }
-      options = {name, pattern, page}
+      pattern = name.pattern
+      page = name.page
+      opts = name.opts || {}
+      name = name.name
+    } else if (name[0] === '/') {
+      opts = page || {}
+      page = pattern
+      pattern = name
+      name = null
     }
+
+    const pathToRegexpOpts = Object.assign({}, this.pathToRegexpOpts, opts.pathToRegexp)
+    const options = {name, pattern, page, pathToRegexpOpts}
 
     if (this.findByName(name)) {
       throw new Error(`Route "${name}" already exists`)
@@ -115,7 +119,7 @@ class Routes {
 }
 
 class Route {
-  constructor ({name, pattern, page = name}) {
+  constructor ({name, pattern, page = name, pathToRegexpOpts = {}}) {
     if (!name && !page) {
       throw new Error(`Missing page to render for route "${pattern}"`)
     }
@@ -123,7 +127,7 @@ class Route {
     this.name = name
     this.pattern = pattern || `/${name}`
     this.page = page.replace(/(^|\/)index$/, '').replace(/^\/?/, '/')
-    this.regex = pathToRegexp(this.pattern, this.keys = [])
+    this.regex = pathToRegexp(this.pattern, this.keys = [], pathToRegexpOpts)
     this.keyNames = this.keys.map(key => key.name)
     this.toPath = pathToRegexp.compile(this.pattern)
   }
