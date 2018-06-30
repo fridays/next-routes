@@ -3,11 +3,14 @@ import { Server } from "next";
 import { ComponentType } from "react";
 import { LinkState } from "next/link";
 import { SingletonRouter, EventChangeOptions } from "next/router";
+import { RegExpOptions, ParseOptions } from 'path-to-regexp'
 
 export type HTTPHandler = (
   request: IncomingMessage,
   response: ServerResponse
 ) => void;
+
+export type PathToRegexpOptions = ParseOptions & RegExpOptions
 
 export type RouteParams = {
   [k: string]: string | number;
@@ -46,9 +49,10 @@ export interface Registry {
 
 export default class Routes implements Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
-  add(name: string, pattern?: string, page?: string): this;
-  add(pattern: string, page: string): this;
-  add(options: { name: string; pattern?: string; page?: string }): this;
+  add(name: string, pattern?: string, page?: string, opts?: { pathToRegexp?: PathToRegexpOptions}): this;
+  add(pattern: string, page: string, opts?: { pathToRegexp?: PathToRegexpOptions}): this;
+  add(options: { name: string; pattern?: string; page?: string, opts?: { pathToRegexp?: PathToRegexpOptions}}): this;
   Link: ComponentType<LinkProps>;
   Router: Router;
+  pathToRegexpOpts: PathToRegexpOptions
 }

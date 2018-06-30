@@ -108,6 +108,31 @@ describe('Routes', () => {
     expect(renderer.render(<Link />).type).toBe(CustomLink)
     expect(Router).toBe(CustomRouter)
   })
+
+  test('with global pathToRegexp options', () => {
+    const pathToRegexpOpts = {sensitive: true}
+    const routes = nextRoutes({pathToRegexpOpts}).add('a', '/A')
+    const route = routes.findByName('a')
+    expect(route.regex.toString().includes('/i')).toBeFalsy()
+  })
+
+  test('with route pathToRegexp options', () => {
+    const routes = nextRoutes()
+      .add({name: 'b', pattern: '/b', opts: {pathToRegexp: {sensitive: true}}})
+      .add('c', '/c', 'c', {pathToRegexp: {strict: true}})
+    const routeB = routes.findByName('b')
+    expect(routeB.regex.toString().includes('/i')).toBeFalsy()
+    const routeC = routes.findByName('c')
+    expect(routeC.regex.toString().includes('(?:\\/)')).toBeFalsy()
+  })
+
+  test('global and route pathToRegexp options are merged', () => {
+    const routes = nextRoutes({pathToRegexpOpts: {sensitive: true, strict: false}})
+      .add('a', '/a', 'a', {pathToRegexp: {strict: true}})
+    const route = routes.findByName('a')
+    expect(route.regex.toString().includes('(?:\\/)')).toBeFalsy()
+    expect(route.regex.toString().includes('/i')).toBeFalsy()
+  })
 })
 
 describe('Request handler', () => {
