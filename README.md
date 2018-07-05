@@ -56,6 +56,15 @@ export default class Blog extends React.Component {
 }
 ```
 
+TypeScript:
+
+```typescript
+import * as Routes from "../..";
+
+const routes = Routes();
+...
+```
+
 ## On the server
 
 ```javascript
