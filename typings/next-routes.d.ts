@@ -4,21 +4,21 @@ import { ComponentType } from "react";
 import { LinkState } from "next/link";
 import { SingletonRouter, EventChangeOptions } from "next/router";
 
-export type HTTPHandler = (
+type HTTPHandler = (
   request: IncomingMessage,
   response: ServerResponse
 ) => void;
 
-export type RouteParams = {
+type RouteParams = {
   [k: string]: string | number;
 };
 
-export interface LinkProps extends LinkState {
+interface LinkProps extends LinkState {
   route: string;
   params?: RouteParams;
 }
 
-export interface Router extends SingletonRouter {
+interface Router extends SingletonRouter {
   pushRoute(
     route: string,
     params?: RouteParams,
@@ -35,7 +35,7 @@ export interface Router extends SingletonRouter {
   ): Promise<React.ComponentType<any>>;
 }
 
-export interface Registry {
+interface Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
   add(pattern: string, page: string): this;
@@ -44,12 +44,12 @@ export interface Registry {
   Router: Router;
 }
 
-export interface Opts {
+interface Opts {
   Link?: ComponentType<LinkProps>;
   Router?: Router;
 }
 
-export declare class Routes implements Registry {
+declare class Routes implements Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
   add(pattern: string, page: string): this;
@@ -58,5 +58,6 @@ export declare class Routes implements Registry {
   Router: Router;
 }
 
-declare const routes: (opts?: Opts) => Routes;
-export default routes;
+declare function routes(opts?: Opts): Routes;
+declare namespace routes {}
+export = routes;
