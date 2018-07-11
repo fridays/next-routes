@@ -45,7 +45,7 @@
     "@types/node": "^10.1.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.4.3",
+    "babel-jest": "^23.0.0",
     "concurrently": "^3.5.0",
     "coveralls": "^3.0.0",
     "del-cli": "^1.1.0",
