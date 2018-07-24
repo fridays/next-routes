@@ -10,5 +10,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node"
-  }
+  },
+  "typeRoots": [
+    "./node_modules/@types"
+  ]
 }
