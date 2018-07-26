@@ -52,7 +52,7 @@ class Routes {
       if (result.route) return result
       const params = route.match(pathname)
       if (!params) return result
-      return {...result, route, params, query: {...query, ...params}}
+      return {...result, route, params: {...query, ...params}, query: {...query, ...params}}
     }, {query, parsedUrl})
   }
 

@@ -59,6 +59,12 @@ describe('Routes', () => {
     setup('index', '/').testRoute({page: '/'})
   })
 
+  test('merge query string into params', () => {
+    const routes = nextRoutes().add('a', '/a/:slug/reviews')
+    const {params} = routes.match('/a/some-slug/reviews?page=1')
+    expect(params).toMatchObject({slug: 'some-slug', page: '1'})
+  })
+
   test('match and merge params into query', () => {
     const routes = nextRoutes().add('a').add('b', '/:a?/b/:b').add('c')
     const {query} = routes.match('/b/b?b=x&c=c')
