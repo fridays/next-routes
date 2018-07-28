@@ -16,9 +16,10 @@ Install:
 npm install next-routes --save
 ```
 
-Create `routes.js` inside your project:
+Create your `routes` file inside your project
 
 ```javascript
+// routes.js
 const routes = require('next-routes')
 
                                                     // Name   Page      Pattern
@@ -28,6 +29,31 @@ module.exports = routes()                           // ----   ----      -----
 .add('user', '/user/:id', 'profile')                // user   profile   /user/:id
 .add('/:noname/:lang(en|es)/:wow+', 'complex')      // (none) complex   /:noname/:lang(en|es)/:wow+
 .add({name: 'beta', pattern: '/v3', page: 'v3'})    // beta   v3        /v3
+```
+
+
+or for typescript users...
+
+```typescript
+// routes.ts
+import * as routes from 'next-routes';
+
+                                                    // Name   Page      Pattern
+const helloNextRoutes = routes()                    // ----   ----      -----
+.add('about')                                       // about  about     /about
+.add('blog', '/blog/:slug')                         // blog   blog      /blog/:slug
+.add('user', '/user/:id', 'profile')                // user   profile   /user/:id
+.add('/:noname/:lang(en|es)/:wow+', 'complex')      // (none) complex   /:noname/:lang(en|es)/:wow+
+.add({name: 'beta', pattern: '/v3', page: 'v3'})    // beta   v3        /v3
+
+const Link = helloNextRoutes.Link;
+const Router = helloNextRoutes.Router;
+
+// export the next routes
+export default helloNextRoutes;
+
+// export the link and router for reuse elsewhere
+export { Link, Router };
 ```
 
 This file is used both on the server and the client.

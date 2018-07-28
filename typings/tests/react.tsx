@@ -3,10 +3,7 @@ import routes from "./basic";
 
 const { Link, Router } = routes;
 
-export default class App extends React.Component {
-  handleClick() {
-    Router.pushRoute("settings", { id: "123" }, { shallow: false });
-  }
+export default class MyComponent extends React.Component {
   public render() {
     return (
       <div>
@@ -16,5 +13,9 @@ export default class App extends React.Component {
         </Link>
       </div>
     );
+  }
+  
+  private handleClick() {
+    Router.pushRoute("settings", { id: "123" }, { shallow: false });
   }
 }
