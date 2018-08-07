@@ -4,6 +4,9 @@ import { ComponentType } from "react";
 import { LinkState } from "next/link";
 import { SingletonRouter, EventChangeOptions } from "next/router";
 
+declare function routes(opts?: any): Routes;
+export default routes;
+
 export type HTTPHandler = (
   request: IncomingMessage,
   response: ServerResponse
@@ -44,7 +47,7 @@ export interface Registry {
   Router: Router;
 }
 
-export default class Routes implements Registry {
+export class Routes implements Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
   add(pattern: string, page: string): this;
