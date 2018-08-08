@@ -2,7 +2,7 @@ import * as http from "http";
 import * as next from "next";
 import Routes from "../..";
 
-const routes = new Routes();
+const routes = Routes();
 
 routes
   .add("login")
@@ -14,7 +14,9 @@ routes
 export const createServer = () => {
   const app = next({ dev: true });
   return app.prepare().then(() => {
-    return http.createServer(routes.getRequestHandler(app));
+    return http.createServer(routes.getRequestHandler(app, ({ req, res, route, query }) => {
+      return app.render(req, res, route.page, query);
+    }));
   });
 };
 
