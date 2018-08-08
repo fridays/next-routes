@@ -4,7 +4,10 @@ import {parse} from 'url'
 import NextLink from 'next/link'
 import NextRouter from 'next/router'
 
-module.exports = opts => new Routes(opts)
+const createRoutes = opts => new Routes(opts)
+
+module.exports = createRoutes
+module.exports.default = createRoutes
 
 class Routes {
   constructor ({
