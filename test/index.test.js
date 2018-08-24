@@ -97,6 +97,18 @@ describe('Routes', () => {
     expect(setup('a').route.getUrls()).toEqual({as: '/a', href: '/a?'})
   })
 
+  test('should return params', () => {
+    const {route} = setup('a', '/a/:b')
+    const expected = route.valuesToParams(['/b'])
+    expect(expected).toEqual({b: '/b'})
+  })
+
+  test('should not throw when passed a malformed param', () => {
+    const {route} = setup('a', '/a/:b')
+    const expected = route.valuesToParams(['C0%'])
+    expect(expected).toEqual({})
+  })
+
   test('ensure "as" when path match is empty', () => {
     expect(setup('a', '/:a?').route.getAs()).toEqual('/')
   })
