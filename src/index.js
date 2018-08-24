@@ -52,7 +52,7 @@ class Routes {
       if (result.route) return result
       const params = route.match(pathname)
       if (!params) return result
-      return {...result, route, params, query: {...query, ...params}}
+      return {...result, route, params: {...query, ...params}, query: {...query, ...params}}
     }, {query, parsedUrl})
   }
 
@@ -138,9 +138,13 @@ class Route {
   valuesToParams (values) {
     return values.reduce((params, val, i) => {
       if (val === undefined) return params
-      return Object.assign(params, {
-        [this.keys[i].name]: decodeURIComponent(val)
-      })
+      try {
+        return Object.assign(params, {
+          [this.keys[i].name]: decodeURIComponent(val)
+        })
+      } catch (e) {
+        return params
+      }
     }, {})
   }
 
