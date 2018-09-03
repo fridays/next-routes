@@ -156,7 +156,7 @@ describe('Request handler (return statement)', () => {
   test('find route and call render with returning result', () => {
     const {routes, app, req, res} = setup('/a')
     routes.add('a').match('/a')
-    expect(routes.getRequestHandler(app)(req, res)).resolves.toBe('nextHandler')
+    return expect(routes.getRequestHandler(app)(req, res)).resolves.toBe('appRender')
   })
 
   test('find route and call custom handler with returning result', () => {
@@ -164,13 +164,13 @@ describe('Request handler (return statement)', () => {
     routes.add('a').match('/a')
     const customHandler = jest.fn()
     customHandler.mockResolvedValue('customeHandler')
-    expect(routes.getRequestHandler(app, customHandler)(req, res)).resolves.toBe('customeHandler')
+    return expect(routes.getRequestHandler(app, customHandler)(req, res)).resolves.toBe('customeHandler')
   })
 
   test('find no route and call next handler with returning result', () => {
     const {routes, app, req, res} = setup('/a')
     routes.match('/a')
-    expect(routes.getRequestHandler(app)(req, res)).resolves.toBe('appRender')
+    return expect(routes.getRequestHandler(app)(req, res)).resolves.toBe('nextHandler')
   })
 })
 
