@@ -142,6 +142,38 @@ describe('Request handler', () => {
   })
 })
 
+describe('Request handler (return statement)', () => {
+  const setup = url => {
+    const routes = nextRoutes()
+    const nextHandler = jest.fn()
+    nextHandler.mockResolvedValue('nextHandler')
+    const appRender = jest.fn()
+    appRender.mockResolvedValue('appRender')
+    const app = {getRequestHandler: () => nextHandler, render: appRender}
+    return {app, routes, req: {url}, res: {}}
+  }
+
+  test('find route and call render with returning result', () => {
+    const {routes, app, req, res} = setup('/a')
+    routes.add('a').match('/a')
+    expect(routes.getRequestHandler(app)(req, res)).resolves.toBe('nextHandler')
+  })
+
+  test('find route and call custom handler with returning result', () => {
+    const {routes, app, req, res} = setup('/a')
+    routes.add('a').match('/a')
+    const customHandler = jest.fn()
+    customHandler.mockResolvedValue('customeHandler')
+    expect(routes.getRequestHandler(app, customHandler)(req, res)).resolves.toBe('customeHandler')
+  })
+
+  test('find no route and call next handler with returning result', () => {
+    const {routes, app, req, res} = setup('/a')
+    routes.match('/a')
+    expect(routes.getRequestHandler(app)(req, res)).resolves.toBe('appRender')
+  })
+})
+
 describe('Link', () => {
   const setup = (...args) => {
     const {routes, route} = setupRoute(...args)
