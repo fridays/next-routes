@@ -35,8 +35,6 @@ export interface Router extends SingletonRouter {
   ): Promise<React.ComponentType<any>>;
 }
 
-
-
 export interface Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
