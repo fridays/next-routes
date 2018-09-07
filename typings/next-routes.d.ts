@@ -35,6 +35,8 @@ export interface Router extends SingletonRouter {
   ): Promise<React.ComponentType<any>>;
 }
 
+
+
 export interface Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
@@ -44,6 +46,16 @@ export interface Registry {
   Router: Router;
 }
 
+export interface Route {
+  name: string;
+  pattern: string;
+  page: string;
+  regex: RegExp;
+  keyNames: Array<string>
+  toPath: ( opts: { [index : string ] : any }) => string
+}
+
+
 export default class Routes implements Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
@@ -51,4 +63,5 @@ export default class Routes implements Registry {
   add(options: { name: string; pattern?: string; page?: string }): this;
   Link: ComponentType<LinkProps>;
   Router: Router;
+  routes: Array<Route>
 }
