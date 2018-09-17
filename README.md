@@ -86,6 +86,29 @@ const handler = routes.getRequestHandler(app, ({req, res, route, query}) => {
 })
 ```
 
+If you need to disable the default NextJS route handler for any reason you can do so
+passing `disableDefaultHandler: true` to the handler options, for example:
+```javascript
+// server.js
+const next = require('next')
+const routes = require('./routes')
+const app = next({dev: process.env.NODE_ENV !== 'production'})
+const assetHandler = app.getRequestHandler();
+const handler = routes.getRequestHandler(app, null, { disableDefaultHandler: true });
+
+// With express
+const express = require('express')
+app.prepare().then(() => {
+  const express()
+    .use(handler)
+    .get('/_next/*', assetHandler)
+    .get('/another-express-route', (req, res) => {
+      res.send('hey I am another route')
+    })
+    .listen(3000)
+})
+```
+
 Make sure to use `server.js` in your `package.json` scripts:
 
 ```json

@@ -114,8 +114,10 @@ describe('Request handler', () => {
   const setup = url => {
     const routes = nextRoutes()
     const nextHandler = jest.fn()
-    const app = {getRequestHandler: () => nextHandler, render: jest.fn()}
-    return {app, routes, req: {url}, res: {}}
+    const app = {
+      getRequestHandler: () => nextHandler, render: jest.fn()
+    }
+    return {app, routes, req: {url}, res: {}, next: jest.fn()}
   }
 
   test('find route and call render', () => {
@@ -139,6 +141,13 @@ describe('Request handler', () => {
     const {parsedUrl} = routes.match('/a')
     routes.getRequestHandler(app)(req, res)
     expect(app.getRequestHandler()).toBeCalledWith(req, res, parsedUrl)
+  })
+
+  test('find no route with disable default handler true and call express next', () => {
+    const {routes, app, req, res, next} = setup('/a')
+    const opts = { disableDefaultHandler: true }
+    routes.getRequestHandler(app, null, opts)(req, res, next)
+    expect(next).toBeCalled()
   })
 })
 
