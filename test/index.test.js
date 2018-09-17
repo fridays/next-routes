@@ -147,8 +147,8 @@ describe('Request handler', () => {
     const {routes, app, req, res, next} = setup('/a')
     const opts = { disableDefaultHandler: true }
     routes.getRequestHandler(app, null, opts)(req, res, next)
-    expect(next).toBeCalled();
-  });
+    expect(next).toBeCalled()
+  })
 })
 
 describe('Link', () => {

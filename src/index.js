@@ -81,7 +81,7 @@ class Routes {
         }
         return app.render(req, res, route.page, query)
       }
-      
+
       if (opts && opts.disableDefaultHandler) {
         return next()
       }
