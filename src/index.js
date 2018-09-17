@@ -69,21 +69,24 @@ class Routes {
     }
   }
 
-  getRequestHandler (app, customHandler) {
+  getRequestHandler (app, customHandler, opts) {
     const nextHandler = app.getRequestHandler()
 
-    return (req, res) => {
+    return (req, res, next) => {
       const {route, query, parsedUrl} = this.match(req.url)
 
       if (route) {
         if (customHandler) {
-          customHandler({req, res, route, query})
-        } else {
-          app.render(req, res, route.page, query)
+          return customHandler({req, res, route, query})
         }
-      } else {
-        nextHandler(req, res, parsedUrl)
+        return app.render(req, res, route.page, query)
       }
+      
+      if (opts && opts.disableDefaultHandler) {
+        return next()
+      }
+
+      return nextHandler(req, res, parsedUrl)
     }
   }
 
