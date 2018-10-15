@@ -23,7 +23,6 @@
     "test": "npm run testOnly && npm run testTypings",
     "testOnly": "jest \\.test.js --coverage",
     "testTypings": "tsc --project ./typings/tests",
-    "testCI": "npm run test && cat coverage/lcov.info | coveralls",
     "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'"
   },
   "standard": {
@@ -53,7 +52,6 @@
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.4.3",
     "concurrently": "^3.5.0",
-    "coveralls": "^3.0.0",
     "del-cli": "^1.1.0",
     "jest": "^22.4.3",
     "next": "^6.0.0",

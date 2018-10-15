@@ -1,4 +1,9 @@
+# Use Trusty beta environment: https://docs.travis-ci.com/user/reference/trusty/
+dist: trusty
+sudo: false
+
 language: node_js
 node_js:
-  - "6"
-script: npm run testCI
+  - '6'
+  - '8'
+  - 'stable'
