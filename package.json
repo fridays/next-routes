@@ -1,6 +1,6 @@
 {
   "name": "@yolkai/next-routes",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Easy to use universal dynamic routes for Next.js",
   "repository": {
     "type": "git",
