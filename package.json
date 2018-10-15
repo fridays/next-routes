@@ -46,7 +46,7 @@
     "@babel/cli": "7.1.2",
     "@babel/core": "7.1.2",
     "@babel/preset-env": "7.1.0",
-    "@types/next": "2.4.10",
+    "@types/next": "2.4.12",
     "@types/node": "10.1.2",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "8.2.3",
