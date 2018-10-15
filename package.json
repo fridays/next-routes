@@ -54,7 +54,7 @@
     "concurrently": "3.5.1",
     "del-cli": "1.1.0",
     "jest": "22.4.4",
-    "next": "6.0.3",
+    "next": "6.1.2",
     "prop-types": "15.6.1",
     "react": "16.3.2",
     "react-dom": "16.3.2",
