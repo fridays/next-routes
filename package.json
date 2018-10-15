@@ -1,6 +1,6 @@
 {
   "name": "@elliottsj/next-routes",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Easy to use universal dynamic routes for Next.js",
   "repository": {
     "type": "git",
