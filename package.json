@@ -1,8 +1,14 @@
 {
-  "name": "next-routes",
+  "name": "@elliottsj/next-routes",
   "version": "1.4.2",
   "description": "Easy to use universal dynamic routes for Next.js",
-  "repository": "fridays/next-routes",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elliottsj/next-routes.js.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist",
   "typings": "typings/next-routes.d.ts",
   "files": [
