@@ -49,7 +49,7 @@
     "@types/next": "2.4.12",
     "@types/node": "10.12.0",
     "babel-core": "7.0.0-bridge.0",
-    "babel-eslint": "8.2.6",
+    "babel-eslint": "10.0.1",
     "babel-jest": "22.4.4",
     "concurrently": "4.0.1",
     "del-cli": "1.1.0",
