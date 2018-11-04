@@ -4,7 +4,7 @@
   "description": "Easy to use universal dynamic routes for Next.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/elliottsj/next-routes.js.git"
+    "url": "git+https://github.com/yolk-hq/next-routes.git"
   },
   "publishConfig": {
     "access": "public"
