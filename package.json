@@ -43,9 +43,9 @@
     "react": "^15.4.2 || ^16"
   },
   "devDependencies": {
-    "@babel/cli": "7.1.2",
-    "@babel/core": "7.1.2",
-    "@babel/preset-env": "7.1.0",
+    "@babel/cli": "7.1.5",
+    "@babel/core": "7.1.5",
+    "@babel/preset-env": "7.1.5",
     "@types/next": "7.0.3",
     "@types/node": "10.12.2",
     "babel-core": "7.0.0-bridge.0",
