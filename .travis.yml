@@ -1,4 +1,8 @@
 language: node_js
 node_js:
+  - "node"
+  - "10"
+  - "8"
   - "6"
 script: npm run testCI
+install: npm install
