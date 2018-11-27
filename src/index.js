@@ -89,11 +89,17 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const {route, params, to, ...newProps} = props
+      const {route, params, to, hash, ...newProps} = props
       const nameOrUrl = route || to
 
       if (nameOrUrl) {
         Object.assign(newProps, this.findAndGetUrls(nameOrUrl, params).urls)
+        if (hash) {
+          Object.assign(newProps, {
+            href: `${newProps.href}#${hash}`,
+            as: `${newProps.as}#${hash}`
+          })
+        }
       }
 
       return <Link {...newProps} />
@@ -103,7 +109,12 @@ class Routes {
 
   getRouter (Router) {
     const wrap = method => (route, params, options) => {
-      const {byName, urls: {as, href}} = this.findAndGetUrls(route, params)
+      let {byName, urls: {as, href}} = this.findAndGetUrls(route, params)
+      if (options && options.hash) {
+        href = `${href}#${options.hash}`
+        as = `${as}#${options.hash}`
+        delete options.hash
+      }
       return Router[method](href, as, byName ? options : params)
     }
 
