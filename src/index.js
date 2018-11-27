@@ -109,7 +109,12 @@ class Routes {
 
   getRouter (Router) {
     const wrap = method => (route, params, options) => {
-      const {byName, urls: {as, href}} = this.findAndGetUrls(route, params)
+      let {byName, urls: {as, href}} = this.findAndGetUrls(route, params)
+      if (options && options.hash) {
+        href = `${href}#${options.hash}`
+        as = `${as}#${options.hash}`
+        delete options.hash
+      }
       return Router[method](href, as, byName ? options : params)
     }
 
