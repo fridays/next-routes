@@ -1,4 +1,10 @@
 language: node_js
 node_js:
+  - "lts/*"
   - "6"
-script: npm run testCI
+env:
+  matrix:
+  - CMD=build
+  - CMD=lint
+  - CMD=testCI
+script: npm run $CMD
