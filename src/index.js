@@ -178,7 +178,8 @@ const toQuerystring = obj =>
       if (Array.isArray(value)) {
         return value.reduce((acc, arrayValue) => {
           const query = `${encodeURIComponent(key)}=${encodeURIComponent(arrayValue)}`
-          return [...acc, query]
+          acc.push(query)
+          return acc
         }, []).join('&')
       }
       return [encodeURIComponent(key), encodeURIComponent(value)].join('=')
