@@ -1,13 +1,16 @@
 import pathToRegexp from 'path-to-regexp'
 import React from 'react'
-import { parse } from 'url'
+import {parse} from 'url'
 import NextLink from 'next/link'
 import NextRouter from 'next/router'
 
 module.exports = opts => new Routes(opts)
 
 class Routes {
-  constructor ({ Link = NextLink, Router = NextRouter } = {}) {
+  constructor ({
+    Link = NextLink,
+    Router = NextRouter
+  } = {}) {
     this.routes = []
     this.Link = this.getLink(Link)
     this.Router = this.getRouter(Router)
@@ -24,7 +27,7 @@ class Routes {
         pattern = name
         name = null
       }
-      options = { name, pattern, page }
+      options = {name, pattern, page}
     }
 
     if (this.findByName(name)) {
@@ -43,29 +46,26 @@ class Routes {
 
   match (url) {
     const parsedUrl = parse(url, true)
-    const { pathname, query } = parsedUrl
+    const {pathname, query} = parsedUrl
 
-    return this.routes.reduce(
-      (result, route) => {
-        if (result.route) return result
-        const params = route.match(pathname)
-        if (!params) return result
-        return { ...result, route, params, query: { ...query, ...params } }
-      },
-      { query, parsedUrl }
-    )
+    return this.routes.reduce((result, route) => {
+      if (result.route) return result
+      const params = route.match(pathname)
+      if (!params) return result
+      return {...result, route, params, query: {...query, ...params}}
+    }, {query, parsedUrl})
   }
 
   findAndGetUrls (nameOrUrl, params) {
     const route = this.findByName(nameOrUrl)
 
     if (route) {
-      return { route, urls: route.getUrls(params), byName: true }
+      return {route, urls: route.getUrls(params), byName: true}
     } else {
-      const { route, query } = this.match(nameOrUrl)
+      const {route, query} = this.match(nameOrUrl)
       const href = route ? route.getHref(query) : nameOrUrl
-      const urls = { href, as: nameOrUrl }
-      return { route, urls }
+      const urls = {href, as: nameOrUrl}
+      return {route, urls}
     }
   }
 
@@ -73,11 +73,11 @@ class Routes {
     const nextHandler = app.getRequestHandler()
 
     return (req, res) => {
-      const { route, query, parsedUrl } = this.match(req.url)
+      const {route, query, parsedUrl} = this.match(req.url)
 
       if (route) {
         if (customHandler) {
-          customHandler({ req, res, route, query })
+          customHandler({req, res, route, query})
         } else {
           app.render(req, res, route.page, query)
         }
@@ -89,7 +89,7 @@ class Routes {
 
   getLink (Link) {
     const LinkRoutes = props => {
-      const { route, params, to, ...newProps } = props
+      const {route, params, to, ...newProps} = props
       const nameOrUrl = route || to
 
       if (nameOrUrl) {
@@ -103,10 +103,7 @@ class Routes {
 
   getRouter (Router) {
     const wrap = method => (route, params, options) => {
-      const {
-        byName,
-        urls: { as, href }
-      } = this.findAndGetUrls(route, params)
+      const {byName, urls: {as, href}} = this.findAndGetUrls(route, params)
       return Router[method](href, as, byName ? options : params)
     }
 
@@ -118,7 +115,7 @@ class Routes {
 }
 
 class Route {
-  constructor ({ name, pattern, page = name }) {
+  constructor ({name, pattern, page = name}) {
     if (!name && !page) {
       throw new Error(`Missing page to render for route "${pattern}"`)
     }
@@ -126,7 +123,7 @@ class Route {
     this.name = name
     this.pattern = pattern || `/${name}`
     this.page = page.replace(/(^|\/)index$/, '').replace(/^\/?/, '/')
-    this.regex = pathToRegexp(this.pattern, (this.keys = []))
+    this.regex = pathToRegexp(this.pattern, this.keys = [])
     this.keyNames = this.keys.map(key => key.name)
     this.toPath = pathToRegexp.compile(this.pattern)
   }
@@ -158,13 +155,9 @@ class Route {
 
     if (!qsKeys.length) return as
 
-    const qsParams = qsKeys.reduce(
-      (qs, key) =>
-        Object.assign(qs, {
-          [key]: params[key]
-        }),
-      {}
-    )
+    const qsParams = qsKeys.reduce((qs, key) => Object.assign(qs, {
+      [key]: params[key]
+    }), {})
 
     return `${as}?${toQuerystring(qsParams)}`
   }
@@ -172,7 +165,7 @@ class Route {
   getUrls (params) {
     const as = this.getAs(params)
     const href = this.getHref(params)
-    return { as, href }
+    return {as, href}
   }
 }
 
