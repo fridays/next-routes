@@ -1,10 +1,8 @@
 import * as http from "http";
 import * as next from "next";
-import Routes from "../..";
+import routes from "../..";
 
-const routes = new Routes();
-
-routes
+const r = routes()
   .add("login")
   .add("home", "/", "index")
   .add("/settings", "/users/:id/settings")
@@ -14,8 +12,8 @@ routes
 export const createServer = () => {
   const app = next({ dev: true });
   return app.prepare().then(() => {
-    return http.createServer(routes.getRequestHandler(app));
+    return http.createServer(r.getRequestHandler(app));
   });
 };
 
-export default routes;
+export default r;

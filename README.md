@@ -1,6 +1,8 @@
 # Dynamic Routes for Next.js
 
-[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.4.2&x2=0)](https://www.npmjs.com/package/next-routes) [![Coverage Status](https://coveralls.io/repos/github/fridays/next-routes/badge.svg)](https://coveralls.io/github/fridays/next-routes) [![Build Status](https://travis-ci.org/fridays/next-routes.svg?branch=master)](https://travis-ci.org/fridays/next-routes)
+**NOTICE: This is a fork of [fridays/next-routes](https://github.com/fridays/next-routes). This will continue to be maintained until [fridays/next-routes](https://github.com/fridays/next-routes) becomes maintained again. See https://github.com/fridays/next-routes/issues/244.**
+
+[![npm (scoped)](https://img.shields.io/npm/v/@yolkai/next-routes.svg)](https://www.npmjs.com/package/@yolkai/next-routes) [![Build Status](https://travis-ci.com/elliottsj/next-routes.svg?branch=master)](https://travis-ci.com/elliottsj/next-routes)
 
 Easy to use universal dynamic routes for [Next.js](https://github.com/zeit/next.js)
 
@@ -13,13 +15,13 @@ Easy to use universal dynamic routes for [Next.js](https://github.com/zeit/next.
 Install:
 
 ```bash
-npm install next-routes --save
+npm install @yolkai/next-routes --save
 ```
 
 Create `routes.js` inside your project:
 
 ```javascript
-const routes = require('next-routes')
+const routes = require('@yolkai/next-routes')
 
                                                     // Name   Page      Pattern
 module.exports = routes()                           // ----   ----      -----
@@ -179,7 +181,7 @@ It generates the URLs and calls `next/router`
 Optionally you can provide custom `Link` and `Router` objects, for example:
 
 ```javascript
-const routes = module.exports = require('next-routes')({
+const routes = module.exports = require('@yolkai/next-routes')({
   Link: require('./my/link')
   Router: require('./my/router')
 })
