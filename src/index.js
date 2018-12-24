@@ -7,8 +7,6 @@ import queryString from 'query-string'
 
 module.exports = opts => new Routes(opts)
 
-const toQuerystring = queryString.stringify
-
 class Routes {
   constructor ({
     Link = NextLink,
@@ -171,3 +169,5 @@ class Route {
     return {as, href}
   }
 }
+
+const toQuerystring = queryString.stringify
