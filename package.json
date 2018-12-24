@@ -31,7 +31,8 @@
     ]
   },
   "dependencies": {
-    "path-to-regexp": "^2.1.0"
+    "path-to-regexp": "^2.1.0",
+    "query-string": "^6.2.0"
   },
   "peerDependencies": {
     "next": ">=2",

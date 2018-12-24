@@ -3,8 +3,11 @@ import React from 'react'
 import {parse} from 'url'
 import NextLink from 'next/link'
 import NextRouter from 'next/router'
+import queryString from 'query-string'
 
 module.exports = opts => new Routes(opts)
+
+const toQuerystring = queryString.stringify
 
 class Routes {
   constructor ({
@@ -168,17 +171,3 @@ class Route {
     return {as, href}
   }
 }
-
-const toQuerystring = obj => Object.keys(obj)
-  .filter(key => obj[key] !== null && obj[key] !== undefined)
-  .map(key => {
-    let value = obj[key]
-
-    if (Array.isArray(value)) {
-      value = value.join('/')
-    }
-    return [
-      encodeURIComponent(key),
-      encodeURIComponent(value)
-    ].join('=')
-  }).join('&')
