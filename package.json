@@ -31,7 +31,7 @@
     ]
   },
   "dependencies": {
-    "path-to-regexp": "^2.1.0"
+    "path-to-regexp": "^3.0.0"
   },
   "peerDependencies": {
     "next": ">=2",
