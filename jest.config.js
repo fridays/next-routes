@@ -9,5 +9,10 @@ module.exports = {
   coverageDirectory: 'coverage',
 
   // The test environment that will be used for testing
-  testEnvironment: 'node'
+  testEnvironment: 'node',
+
+  // A map from regular expressions to paths to transformers
+  transform: {
+    '^.+\\.jsx?$': require.resolve('./jest/babelTransformer')
+  }
 }
