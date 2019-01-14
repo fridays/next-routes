@@ -21,19 +21,12 @@
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint && npm run build",
     "test": "npm run testOnly && npm run testTypings",
-    "testOnly": "jest \\.test.js --coverage",
+    "testOnly": "jest",
     "testTypings": "tsc --project ./typings/tests",
     "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'"
   },
   "standard": {
     "parser": "babel-eslint"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "roots": [
-      "test/",
-      "dist/"
-    ]
   },
   "dependencies": {
     "path-to-regexp": "^2.1.0"
@@ -46,8 +39,10 @@
     "@babel/cli": "7.2.3",
     "@babel/core": "7.2.2",
     "@babel/preset-env": "7.2.3",
+    "@types/jest": "^23.3.12",
     "@types/next": "7.0.6",
     "@types/node": "10.12.18",
+    "@zeit/next-typescript": "^1.1.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "23.6.0",
@@ -59,6 +54,7 @@
     "react": "16.7.0",
     "react-dom": "16.7.0",
     "react-test-renderer": "16.7.0",
+    "react-testing-library": "^5.4.4",
     "standard": "12.0.1",
     "typescript": "3.2.2"
   },
