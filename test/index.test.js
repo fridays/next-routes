@@ -2,7 +2,7 @@
 import React from 'react'
 import ReactShallowRenderer from 'react-test-renderer/shallow'
 import NextLink from 'next/link'
-import nextRoutes from '../dist'
+import nextRoutes from '..'
 
 const renderer = new ReactShallowRenderer()
 

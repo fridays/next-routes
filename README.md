@@ -21,23 +21,31 @@ npm install @yolkai/next-routes --save
 Create `routes.js` inside your project:
 
 ```javascript
-const routes = require('@yolkai/next-routes')
+const nextRoutes = require('@yolkai/next-routes').default
+
+// Or, if using ES modules:
+// import nextRoutes from '@yolkai/next-routes'
 
                                                     // Name   Page      Pattern
-module.exports = routes()                           // ----   ----      -----
-.add('about')                                       // about  about     /about
-.add('blog', '/blog/:slug')                         // blog   blog      /blog/:slug
-.add('user', '/user/:id', 'profile')                // user   profile   /user/:id
-.add('/:noname/:lang(en|es)/:wow+', 'complex')      // (none) complex   /:noname/:lang(en|es)/:wow+
-.add({name: 'beta', pattern: '/v3', page: 'v3'})    // beta   v3        /v3
+const routes = nextRoutes()                          // ----   ----      -----
+  .add('about')                                     // about  about     /about
+  .add('blog', '/blog/:slug')                       // blog   blog      /blog/:slug
+  .add('user', '/user/:id', 'profile')              // user   profile   /user/:id
+  .add('/:noname/:lang(en|es)/:wow+', 'complex')    // (none) complex   /:noname/:lang(en|es)/:wow+
+  .add({name: 'beta', pattern: '/v3', page: 'v3'})  // beta   v3        /v3
+
+module.exports = routes
+
+// Or, if using ES modules:
+// export default routes
 ```
 
 This file is used both on the server and the client.
 
 API:
 
-- `routes.add([name], pattern = /name, page = name)`
-- `routes.add(object)`
+- `nextRoutes.add([name], pattern = /name, page = name)`
+- `nextRoutes.add(object)`
 
 Arguments:
 
@@ -106,7 +114,9 @@ Import `Link` and `Router` from your `routes.js` file to generate URLs based on 
 
 ```jsx
 // pages/index.js
-import {Link} from '../routes'
+import routes from '../routes'
+
+const { Link } = routes
 
 export default () => (
   <div>
@@ -140,7 +150,9 @@ It generates the URLs for `href` and `as` and renders `next/link`. Other props l
 ```jsx
 // pages/blog.js
 import React from 'react'
-import {Router} from '../routes'
+import routes from '../routes'
+
+const { Router } = routes
 
 export default class Blog extends React.Component {
   handleClick () {
@@ -181,10 +193,14 @@ It generates the URLs and calls `next/router`
 Optionally you can provide custom `Link` and `Router` objects, for example:
 
 ```javascript
-const routes = module.exports = require('@yolkai/next-routes')({
+const nextRoutes = require('@yolkai/next-routes').default
+
+const routes = nextRoutes({
   Link: require('./my/link')
   Router: require('./my/router')
 })
+
+module.exports = routes
 ```
 
 ---
