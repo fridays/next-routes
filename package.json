@@ -21,19 +21,12 @@
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint && npm run build",
     "test": "npm run testOnly && npm run testTypings",
-    "testOnly": "jest \\.test.js --coverage",
+    "testOnly": "jest",
     "testTypings": "tsc --project ./typings/tests",
     "dev": "concurrently -k 'npm run build -- -w' 'npm run testOnly -- --watch'"
   },
   "standard": {
     "parser": "babel-eslint"
-  },
-  "jest": {
-    "testEnvironment": "node",
-    "roots": [
-      "test/",
-      "dist/"
-    ]
   },
   "dependencies": {
     "path-to-regexp": "^2.1.0"
