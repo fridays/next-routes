@@ -169,16 +169,17 @@ class Route {
   }
 }
 
-const toQuerystring = obj => Object.keys(obj)
-  .filter(key => obj[key] !== null && obj[key] !== undefined)
-  .map(key => {
-    let value = obj[key]
+const toQuerystring = obj =>
+  Object.keys(obj)
+    .filter(key => obj[key] !== null && obj[key] !== undefined)
+    .map(key => {
+      let value = obj[key]
 
-    if (Array.isArray(value)) {
-      value = value.join('/')
-    }
-    return [
-      encodeURIComponent(key),
-      encodeURIComponent(value)
-    ].join('=')
-  }).join('&')
+      if (Array.isArray(value)) {
+        return value
+          .map(arrayValue => `${encodeURIComponent(key)}=${encodeURIComponent(arrayValue)}`)
+          .join('&')
+      }
+      return [encodeURIComponent(key), encodeURIComponent(value)].join('=')
+    })
+    .join('&')
