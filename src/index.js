@@ -14,6 +14,7 @@ class Routes {
     this.routes = []
     this.Link = this.getLink(Link)
     this.Router = this.getRouter(Router)
+    this.clubsFolderRegex = pathToRegexp('/clubs/:folder/(.*)')
   }
 
   add (name, pattern, page) {
@@ -44,9 +45,21 @@ class Routes {
     }
   }
 
+  stripClubsFolderPath (pathname) {
+    const folderPatternMatch = this.clubsFolderRegex.exec(pathname)
+    if (!folderPatternMatch) {
+      return pathname
+    }
+
+    const folder = folderPatternMatch[1]
+    const prefix = `/clubs/${folder}`
+    return pathname.substr(prefix.length)
+  }
+
   match (url) {
     const parsedUrl = parse(url, true)
-    const {pathname, query} = parsedUrl
+    const query = parsedUrl.query
+    let pathname = this.stripClubsFolderPath(parsedUrl.pathname)
 
     return this.routes.reduce((result, route) => {
       if (result.route) return result

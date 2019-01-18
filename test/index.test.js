@@ -140,6 +140,13 @@ describe('Request handler', () => {
     routes.getRequestHandler(app)(req, res)
     expect(app.getRequestHandler()).toBeCalledWith(req, res, parsedUrl)
   })
+
+  test('find route and call render with club folder prefix', () => {
+    const {routes, app, req, res} = setup('/a')
+    const {route, query} = routes.add('a').match('/clubs/testclub/a')
+    routes.getRequestHandler(app)(req, res)
+    expect(app.render).toBeCalledWith(req, res, route.page, query)
+  })
 })
 
 describe('Link', () => {
