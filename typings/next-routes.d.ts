@@ -32,7 +32,7 @@ export interface Router extends SingletonRouter {
   prefetchRoute(
     route: string,
     params?: RouteParams
-  ): Promise<React.ComponentType<any>>;
+  ): Promise<ComponentType<any>>;
 }
 
 export interface Registry {
@@ -44,7 +44,13 @@ export interface Registry {
   Router: Router;
 }
 
-export default class Routes implements Registry {
+type RoutesOptions = {
+  Link?: ComponentType<any>;
+  Router?: Router;
+};
+
+export class Routes implements Registry {
+  constructor(options?: RoutesOptions);
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
   add(pattern: string, page: string): this;
@@ -52,3 +58,5 @@ export default class Routes implements Registry {
   Link: ComponentType<LinkProps>;
   Router: Router;
 }
+
+export default function(opts?: RoutesOptions): Routes;
