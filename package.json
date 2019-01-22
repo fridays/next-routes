@@ -38,7 +38,7 @@
   "devDependencies": {
     "@babel/cli": "7.2.3",
     "@babel/core": "7.2.2",
-    "@babel/preset-env": "7.2.3",
+    "@babel/preset-env": "7.3.1",
     "@types/jest": "23.3.13",
     "@types/next": "7.0.6",
     "@types/node": "10.12.18",
