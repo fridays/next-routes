@@ -40,7 +40,7 @@
     "@babel/core": "7.2.2",
     "@babel/preset-env": "7.3.1",
     "@types/jest": "23.3.13",
-    "@types/next": "7.0.6",
+    "@types/next": "7.0.7",
     "@types/node": "10.12.19",
     "@zeit/next-typescript": "1.1.1",
     "babel-core": "7.0.0-bridge.0",
