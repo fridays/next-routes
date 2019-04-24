@@ -1,8 +1,8 @@
-import { IncomingMessage, ServerResponse } from 'http';
-import { Server } from 'next';
-import { ComponentType } from 'react';
-import { LinkState } from 'next/link';
-import { SingletonRouter, EventChangeOptions, DefaultQuery } from 'next/router';
+import { IncomingMessage, ServerResponse } from "http";
+import { Server } from "next";
+import { ComponentType } from "react";
+import { LinkState } from "next/link";
+import { SingletonRouter, EventChangeOptions, DefaultQuery } from "next/router";
 
 export type HTTPHandler = (
   request: IncomingMessage,
