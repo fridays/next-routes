@@ -48,7 +48,7 @@
     "babel-jest": "^22.4.3",
     "concurrently": "^3.5.0",
     "coveralls": "^3.0.0",
-    "del-cli": "^1.1.0",
+    "del-cli": "^2.0.0",
     "jest": "^22.4.3",
     "next": "^6.0.0",
     "prop-types": "^15.6.0",
