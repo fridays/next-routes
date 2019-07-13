@@ -10,7 +10,7 @@ export type HTTPHandler = (
 ) => void;
 
 export type RouteParams = {
-  [k: string]: string | number;
+  [k: string]: string | number | boolean;
 };
 
 export interface LinkProps extends LinkState {
