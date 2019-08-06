@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { Server } from "next";
 import { ComponentType } from "react";
-import { LinkState } from "next/link";
+import { LinkProps as NextLinkProps } from "next/link";
 import { SingletonRouter, EventChangeOptions } from "next/router";
 
 export type HTTPHandler = (
@@ -13,7 +13,7 @@ export type RouteParams = {
   [k: string]: string | number;
 };
 
-export interface LinkProps extends LinkState {
+export interface LinkProps extends NextLinkProps {
   route: string;
   params?: RouteParams;
 }
