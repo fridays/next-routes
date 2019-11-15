@@ -1,6 +1,6 @@
 {
   "name": "next-routes",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "Easy to use universal dynamic routes for Next.js",
   "repository": "fridays/next-routes",
   "main": "dist",
@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "lint": "standard 'src/*' 'test/*'",
-    "build": "del dist/* && babel src -d dist",
+    "build": "babel src -d dist",
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint && npm run build",
     "test": "npm run testOnly && npm run testTypings",

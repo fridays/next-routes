@@ -35,7 +35,7 @@ This file is used both on the server and the client.
 
 API:
 
-- `routes.add([name], pattern = /name, page = name)`
+- `routes.add([name], pattern = /name, page = name, meta)`
 - `routes.add(object)`
 
 Arguments:
@@ -43,6 +43,7 @@ Arguments:
 - `name` - Route name
 - `pattern` - Route pattern (like express, see [path-to-regexp](https://github.com/pillarjs/path-to-regexp))
 - `page` - Page inside `./pages` to be rendered
+- `meta` - Additional meta data for the Route
 
 The page component receives the matched URL parameters merged into `query`
 
