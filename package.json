@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "lint": "standard 'src/*' 'test/*'",
-    "build": "babel src -d dist",
+    "build": "del dist/* && babel src -d dist",
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint && npm run build",
     "test": "npm run testOnly && npm run testTypings",
