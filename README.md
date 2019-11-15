@@ -1,6 +1,6 @@
 # Dynamic Routes for Next.js
 
-[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.3.0&x2=0)](https://www.npmjs.com/package/next-routes) [![Coverage Status](https://coveralls.io/repos/github/fridays/next-routes/badge.svg)](https://coveralls.io/github/fridays/next-routes) [![Build Status](https://travis-ci.org/fridays/next-routes.svg?branch=master)](https://travis-ci.org/fridays/next-routes)
+[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.4.2&x2=0)](https://www.npmjs.com/package/next-routes) [![Coverage Status](https://coveralls.io/repos/github/fridays/next-routes/badge.svg)](https://coveralls.io/github/fridays/next-routes) [![Build Status](https://travis-ci.org/fridays/next-routes.svg?branch=master)](https://travis-ci.org/fridays/next-routes)
 
 Easy to use universal dynamic routes for [Next.js](https://github.com/zeit/next.js)
 
@@ -19,22 +19,22 @@ npm install next-routes --save
 Create `routes.js` inside your project:
 
 ```javascript
-const routes = module.exports = require('next-routes')()
+const routes = require('next-routes')
 
-routes
-.add('about')
-.add('blog', '/blog/:slug')
-.add('user', '/user/:id', 'profile')
-.add('/:noname/:lang(en|es)/:wow+', 'complex')
-.add({name: 'beta', pattern: '/v3', page: 'v3'})
+                                                    // Name   Page      Pattern
+module.exports = routes()                           // ----   ----      -----
+.add('about')                                       // about  about     /about
+.add('blog', '/blog/:slug')                         // blog   blog      /blog/:slug
+.add('user', '/user/:id', 'profile')                // user   profile   /user/:id
+.add('/:noname/:lang(en|es)/:wow+', 'complex')      // (none) complex   /:noname/:lang(en|es)/:wow+
+.add({name: 'beta', pattern: '/v3', page: 'v3'})    // beta   v3        /v3
 ```
 
 This file is used both on the server and the client.
 
 API:
 
-- `routes.add(name, pattern = /name, page = name)`
-- `routes.add(pattern, page)`
+- `routes.add([name], pattern = /name, page = name)`
 - `routes.add(object)`
 
 Arguments:
