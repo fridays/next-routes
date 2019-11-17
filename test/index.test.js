@@ -25,7 +25,7 @@ describe('Routes', () => {
 
   test('add with metadata object', () => {
     setup({name: 'x', meta: { cache: true }})
-    .testRoute({name: 'x', pattern: '/x', page: '/x', meta: { cache: true }})
+      .testRoute({name: 'x', pattern: '/x', page: '/x', meta: { cache: true }})
   })
 
   test('add with name', () => {
