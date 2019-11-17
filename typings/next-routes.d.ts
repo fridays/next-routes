@@ -37,18 +37,18 @@ export interface Router extends SingletonRouter {
 
 export interface Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
-  add(name: string, pattern?: string, page?: string): this;
+  add(name: string, pattern?: string, page?: string, meta?: string): this;
   add(pattern: string, page: string): this;
-  add(options: { name: string; pattern?: string; page?: string }): this;
+  add(options: { name: string; pattern?: string; page?: string, meta?: string }): this;
   Link: ComponentType<LinkProps>;
   Router: Router;
 }
 
 export default class Routes implements Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
-  add(name: string, pattern?: string, page?: string): this;
+  add(name: string, pattern?: string, page?: string, meta?: string): this;
   add(pattern: string, page: string): this;
-  add(options: { name: string; pattern?: string; page?: string }): this;
+  add(options: { name: string; pattern?: string; page?: string, meta?: string }): this;
   Link: ComponentType<LinkProps>;
   Router: Router;
 }
