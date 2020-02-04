@@ -44,7 +44,7 @@ export interface Registry {
   Router: Router;
 }
 
-export default class Routes implements Registry {
+export class Routes implements Registry {
   getRequestHandler(app: Server, custom?: HTTPHandler): HTTPHandler;
   add(name: string, pattern?: string, page?: string): this;
   add(pattern: string, page: string): this;
@@ -52,3 +52,8 @@ export default class Routes implements Registry {
   Link: ComponentType<LinkProps>;
   Router: Router;
 }
+
+export default function router(opts: {
+  Link: React.ComponentType<any>;
+  Router: React.ComponentType<any>;
+}): Routes;
