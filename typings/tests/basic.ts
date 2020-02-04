@@ -1,6 +1,6 @@
 import * as http from "http";
 import * as next from "next";
-import Routes from "../..";
+import { Routes } from "../..";
 
 const routes = new Routes();
 
