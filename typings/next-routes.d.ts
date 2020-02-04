@@ -53,7 +53,7 @@ export class Routes implements Registry {
   Router: Router;
 }
 
-export default function router(opts: {
-  Link: React.ComponentType<any>;
-  Router: React.ComponentType<any>;
+export default function router(opts?: {
+  Link?: React.ComponentType<any>;
+  Router?: React.ComponentType<any>;
 }): Routes;
