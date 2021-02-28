@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "lint": "standard 'src/*' 'test/*'",
-    "build": "del dist/* && babel src -d dist",
+    "build": "del dist/* && npx babel src -d dist",
     "prepublishOnly": "npm run test",
     "pretest": "npm run lint && npm run build",
     "test": "npm run testOnly && npm run testTypings",
@@ -38,14 +38,13 @@
     "react": "^15.4.2 || ^16"
   },
   "devDependencies": {
-    "@babel/cli": "^7.0.0-beta.47",
-    "@babel/core": "^7.0.0-beta.47",
-    "@babel/preset-env": "^7.0.0-beta.47",
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
+    "@babel/preset-env": "^7.13.8",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
     "@types/next": "^2.4.8",
     "@types/node": "^10.1.2",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-eslint": "^8.2.1",
-    "babel-jest": "^22.4.3",
     "concurrently": "^3.5.0",
     "coveralls": "^3.0.0",
     "del-cli": "^1.1.0",

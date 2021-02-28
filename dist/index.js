@@ -10,11 +10,13 @@ var _link = _interopRequireDefault(require("next/link"));
 
 var _router = _interopRequireDefault(require("next/router"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
+function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? Object(arguments[i]) : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -28,15 +30,13 @@ module.exports = function (opts) {
   return new Routes(opts);
 };
 
-var Routes =
-/*#__PURE__*/
-function () {
+var Routes = /*#__PURE__*/function () {
   function Routes() {
     var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
         _ref$Link = _ref.Link,
-        Link = _ref$Link === void 0 ? _link.default : _ref$Link,
+        Link = _ref$Link === void 0 ? _link["default"] : _ref$Link,
         _ref$Router = _ref.Router,
-        Router = _ref$Router === void 0 ? _router.default : _ref$Router;
+        Router = _ref$Router === void 0 ? _router["default"] : _ref$Router;
 
     _classCallCheck(this, Routes);
 
@@ -176,7 +176,7 @@ function () {
           Object.assign(newProps, _this2.findAndGetUrls(nameOrUrl, params).urls);
         }
 
-        return _react.default.createElement(Link, newProps);
+        return _react["default"].createElement(Link, newProps);
       };
 
       return LinkRoutes;
@@ -208,9 +208,7 @@ function () {
   return Routes;
 }();
 
-var Route =
-/*#__PURE__*/
-function () {
+var Route = /*#__PURE__*/function () {
   function Route(_ref2) {
     var name = _ref2.name,
         pattern = _ref2.pattern,
@@ -229,11 +227,11 @@ function () {
     this.meta = meta;
     this.pattern = pattern || "/".concat(name);
     this.page = page.replace(/(^|\/)index$/, '').replace(/^\/?/, '/');
-    this.regex = (0, _pathToRegexp.default)(this.pattern, this.keys = []);
+    this.regex = (0, _pathToRegexp["default"])(this.pattern, this.keys = []);
     this.keyNames = this.keys.map(function (key) {
       return key.name;
     });
-    this.toPath = _pathToRegexp.default.compile(this.pattern);
+    this.toPath = _pathToRegexp["default"].compile(this.pattern);
   }
 
   _createClass(Route, [{
