@@ -2,7 +2,7 @@
   "name": "next-routes",
   "version": "1.4.3",
   "description": "Easy to use universal dynamic routes for Next.js",
-  "repository": "fridays/next-routes",
+  "repository": "subhajeet2107/next-routes",
   "main": "dist",
   "typings": "typings/next-routes.d.ts",
   "files": [
@@ -35,16 +35,16 @@
   },
   "peerDependencies": {
     "next": ">=2",
-    "react": "^15.4.2 || ^16"
+    "react": "^16.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.13.0",
     "@babel/core": "^7.13.8",
     "@babel/preset-env": "^7.13.8",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.6.3",
     "@types/next": "^2.4.8",
     "@types/node": "^10.1.2",
+    "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
     "concurrently": "^3.5.0",
     "coveralls": "^3.0.0",
     "del-cli": "^1.1.0",
@@ -57,7 +57,7 @@
     "standard": "^11.0.1",
     "typescript": "^2.7.2"
   },
-  "author": "fridays",
+  "author": "subhajeet2107",
   "license": "MIT",
   "keywords": [
     "next",
