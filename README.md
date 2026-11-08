@@ -1,8 +1,46 @@
-# Dynamic Routes for Next.js
+# next-routes
 
-[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.4.2&x2=0)](https://www.npmjs.com/package/next-routes) [![Coverage Status](https://coveralls.io/repos/github/fridays/next-routes/badge.svg)](https://coveralls.io/github/fridays/next-routes) [![Build Status](https://travis-ci.org/fridays/next-routes.svg?branch=master)](https://travis-ci.org/fridays/next-routes)
+[![npm version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=js&type=6&v=1.4.2&x2=0)](https://www.npmjs.com/package/next-routes)
 
-> **_Deprecation Notice: This package was a popular choice in the early years of Next.js and is no longer maintained. Please check the Next.js docs for its current ways of routing._**
+Named routes for Next.js. Built for Next.js 2–9 (2017–2019). Last version: 1.4.2.
+
+> [!WARNING]
+> **No longer maintained. This repository is archived and there will be no further releases.**
+> Next.js now covers most of what next-routes did: dynamic routes, custom URLs via rewrites, and no need for a custom server.
+
+## Migrating to built-in routing
+
+- Map each route to a file: `/blog/:slug` → `pages/blog/[slug].js`
+- Patterns that don't fit the file structure (e.g. `:lang(en|de)`, optional params mid-path): use [rewrites](https://nextjs.org/docs/pages/api-reference/config/next-config-js/rewrites)
+- Use `next/link` and `next/router` instead of `Link` and `Router` from `routes.js`
+- Named routes: keep URLs in one place with small helper functions:
+  ```js
+  // lib/urls.js
+  export const blogUrl = (slug) => `/blog/${encodeURIComponent(slug)}`
+  ```
+  - `<Link route="blog" params={{ slug }}>` → `<Link href={blogUrl(slug)}>`
+  - `Router.pushRoute('blog', { slug })` → `Router.push(blogUrl(slug))`
+- If `server.js` only exists for next-routes, remove it and use `next start`
+
+## Security note
+
+next-routes 1.x depends on `path-to-regexp` 2.x, which is affected by [CVE-2024-45296](https://github.com/advisories/GHSA-9wv6-86v2-598j) (ReDoS). There is no fix for 2.x.
+
+You are only affected if a route has two parameters in one segment, e.g. `/:from-:to`. Two options:
+
+1. Give the second parameter an explicit pattern: `/:from-:to([^-/]+)`
+2. Override the dependency, then test your routes, as 3.x behaves differently in some edge cases:
+   - npm: `"overrides": { "next-routes": { "path-to-regexp": "^3.3.0" } }`
+   - Yarn: `"resolutions": { "next-routes/path-to-regexp": "^3.3.0" }`
+   - pnpm: `"pnpm": { "overrides": { "next-routes>path-to-regexp": "^3.3.0" } }`
+
+## Thanks
+
+Thanks to everyone who used, reported and contributed over the years.
+
+---
+
+## Legacy documentation (v1.4.2)
 
 Easy to use universal dynamic routes for [Next.js](https://github.com/zeit/next.js)
 
